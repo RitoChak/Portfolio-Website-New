@@ -432,7 +432,7 @@ h3 {
 					height: auto;
 				}
 			}
-			flex:0.80;
+			flex:1;
 			ul {
 				list-style-type: none;
 				gap:10px;
