@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Ritabrata's Portfolio</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="./styles.css">
+	<script src="./scripts.js"></script>
+	<link rel="icon" type="image/jpg" href="./imgs/favicon.jpg">
+</head>
+<body>
+	<header>
+		<a href="#" class="logo-holder">
+			<div class="logo">R</div>
+			<div class="logo-text">Ritabrata's Portfolio Website</div>
+		</a>
+		<nav>
+			<ul id="menu">
+				<li>
+					<a href="#home">Home</a>
+				</li>
+				<li>
+					<a href="#about-me">About Me</a>
+				</li>
+				<li>
+					<a href="#skills">Skills</a>
+				</li>
+				<li class="dropdown">
+					<a href="#projects">Projects</a>
+					<ul class="dropdown-menu">
+						<li><a href="#data-science">Data Science Projects</a></li>
+						<li><a href="#data-analysis">Data Analysis Projects</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#certificates">Certificates</a>
+				</li>
+				<li>
+					<a href="#contact">Contact Me</a>
+				</li>
+				<li>
+					<a href="documents/Resume.pdf" class="button">View Resume</a>
+				</li>
+			</ul>
+			<a href="#" class="mobile-toggle" onClick="toggleMobileMenu();">
+				<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+					<path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h10"/>
+				</svg>
+			</a>
+		</nav>
+	</header>
+
+
+	<main>
+
+		<!-- Home -->
+		<section id="home" class="hero container">
+			<div class="hero-blue">
+				<div>
+					<h1><small>Hi I'm</small>
+						Ritabrata Chakraborty
+					</h1>
+					<p class="subheader"> M.Sc. Physics | Aspiring Data Scientist | Data Analyst</p>
+					<p>
+						Holder of a Science degree from the University of Calcutta, I furthered my academic journey with a Master's in Physics, specializing in Solid State Physics from Osmania University, Hyderabad. Driven by a passion for data, I am actively pursuing a career as an aspiring data scientist and data analyst, aiming to leverage my academic foundation in physics to bring a unique perspective to the world of data. <span></span>
+					</p>
+					<div class="call-to-action">
+						<a href="documents/Resume.pdf" class="button black">
+							View Resume
+						</a>
+						<a href="#contact" class="button white">
+							Contact Me
+						</a>
+					</div>
+					<div class="social-links">
+						<a href="https://github.com/RitoChak">
+							<img src="./imgs/socials/github.png" alt="GitHub" width="48" />
+						</a>
+						<a href="https://www.linkedin.com/in/ritabrata-chakraborty-065201257/">
+							<img src="./imgs/socials/linkedin.png" alt="LinkedIn" width="48" />
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="hero-yellow">
+				<img src="./imgs/IMG_2144.JPG" alt="Ritabrata Chakraborty" class="circle-image"/>
+			</div>
+		</section>
+
+		<!-- Logos -->
+		<section class="logos container">
+			<div class="marquee">
+				<div class="track">
+					<img src="./imgs/logos/Pandas.png" alt="Pandas" width="256" />
+					<img src="./imgs/logos/Numpy.png" alt="Numpy" width="256" />
+					<img src="./imgs/logos/Excel.png"  alt="Excel" width="128"/>
+					<img src="./imgs/logos/Tableau.png" alt="Tableau" width="256" />
+					<img src="./imgs/logos/python.png"  alt="Python" width="128"/>
+					<img src="./imgs/logos/SQL.png" alt="SQL" width="200" />
+					<img src="./imgs/logos/Tensorflow.png" alt="Tensorflow" width="200" />
+					<img src="./imgs/logos/Pandas.png" alt="Pandas" width="256" />
+					<img src="./imgs/logos/Numpy.png" alt="Numpy" width="256" />
+					<img src="./imgs/logos/Excel.png"  alt="Excel" width="128"/>
+					<img src="./imgs/logos/Tableau.png" alt="Tableau" width="256" />
+					<img src="./imgs/logos/python.png"  alt="Python" width="128"/>
+					<img src="./imgs/logos/SQL.png" alt="SQL" width="200" />
+					<img src="./imgs/logos/Tensorflow.png" alt="Tensorflow" width="200" />
+				</div>
+			</div>
+		</section>
+
+		<!-- About me -->
+		<section id="about-me" class="about container">
+			<h2>
+				About Me
+			</h2>
+			<div class="holder-blue">
+				<div class="left-column">
+					<a href="#">
+							<img src="./imgs/cover.png" alt="Cover" class="small-image" />
+						</a>
+				</div>
+				<div class="right-column">
+					<h3>A bit about me</h3>
+					<p>
+						Greetings, I'm Ritabrata Chakraborty, an individual with a profound background in physics who has transitioned into the dynamic realm of data science. My academic journey includes the attainment of a Master's degree in Physics, where I delved into the intricacies of understanding the universe.</
+					</p>
+					<p>
+						Presently, my focus is keenly directed towards the expansive field of data science. I am actively immersing myself in the intricacies of machine learning and deep learning. Proficient in the Python programming language, I harness my skills across a spectrum of tools and frameworks, including scikit-learn, numpy, pandas, and matplotlib. This enables me to adeptly navigate and tackle complex challenges within the realm of data. Furthermore, I bring valuable experience in data analytics, demonstrating expertise in SQL, spreadsheet applications, and Tableau.
+					</p>
+					<p>I have demonstrated my commitment to continuous learning by obtaining certifications in Data Science from platforms such as Coursera. Notably, I have successfully completed the Machine Learning Specialization, Deep Learning Specialization, Mathematics for Data Science and Machine Learning Specialization, showcasing my dedication to acquiring versatile skills in this dynamic field. Furthermore, I have recently completed the Data Analytics program offered by Google, further expanding my expertise in the field.
+					</p>
+					<p>Apart from my professional pursuits, I find joy in hiking and trekking, seamlessly blending them with my passion for photography. In addition, I take pleasure in both watching and playing football as part of my recreational activities.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Skills -->
+		<section id="skills" class="skills container">
+			<h2>
+				Skills
+			</h2>
+			<div class="holder-blue">
+				<div class="left-column">
+					<h3>Skills</h3>
+					<ul>
+						<li>Python</li>
+						<li>Excel</li>
+						<li>SQL</li>
+						<li>Tableau</li>
+						<li>Pandas</li>
+						<li>Matplotlib</li>
+						<li>Numpy</li>
+						<li>Machine Learning</li>
+						<li>Deep Learning</li>
+						<li>NLP</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+
+
+
+		<!-- Projects -->
+		<section id="projects" class="work-experience container">
+			<h2>
+				<small>Previous</small>
+				Completed Projects
+			</h2>
+			<h2 id="data-science"><small>Data Science Projects</small></h2>
+			<div class="jobs">
+				<article>
+					<figure>
+						<div>
+							<a href="https://public.tableau.com/views/FlightFarePredictorDataAnalysis/Dashboard1?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link"><img src="./imgs/projects/Flight_Fare_1.png" alt="Flight-Fare" width="100%" /></a>
+							<figcaption>
+								Flight Fare Dashboard
+							</figcaption>
+						</div>
+					</figure>
+					<h3><a href="https://github.com/RitoChak/Flight-Fare-Predictor">Flight Fare Predictor</a></h3>
+					<p>Developed a flight fare prediction model using a Random Forest Regressor algorithm, trained on historical flight data, and implemented a user-friendly web application for fare predictions. Utilized data preprocessing, feature engineering, and hyperparameter tuning for model optimization.</p>
+				</article>
+				<article>
+					<figure>
+						<div>
+							<a href="https://public.tableau.com/app/profile/ritabrata.chakraborty6795/viz/ObesityCategoryData/Dashboard1"><img src="./imgs/projects/Obesity.png" alt="Obesity" width="100%" /></a>
+							<figcaption>
+								Obesity Dashboard
+							</figcaption>
+						</div>
+					</figure>
+					<h3><a href="https://github.com/RitoChak/Obesity-Category-Predictor">Obesity Predictor</a></h3>
+					<p>Developed a flight fare prediction model using a Random Forest Regressor algorithm, trained on historical flight data, and implemented a user-friendly web application for fare predictions. Utilized data preprocessing, feature engineering, and hyperparameter tuning for model optimization.</p>
+				</article>
+				<article>
+					<figure>
+						<div>
+							<a href="https://public.tableau.com/app/profile/ritabrata.chakraborty6795/viz/StudentPerformanceAnalysis_17058730007000/Dashboard1"><img src="./imgs/projects/Student_Performance.png" alt="Workplace 3 - Chamber of Commerce" width="100%" /></a>
+							<figcaption>
+								Student Performance Dashboard
+							</figcaption>
+						</div>
+					</figure>
+					<h3><a href="https://github.com/RitoChak/Student-Performance-Exploratory-Data-Analysis">Student Performance Exploratory Data Analysis</a></h3>
+					<p>This project contains the exploratory data analysis and model training of a student performance indicator dataset. The data cleaning, analysis and visualization has been done on Jupyter Notebook. The visualization has also been done on tableau.					</p>
+				</article>
+			</div>
+			<h2 id="data-analysis"><small>Data Analysis Projects</small></h2>
+			<div class="jobs">
+				<article>
+					<figure>
+						<div>
+							<a href="#"><img src="./imgs/pic.jpg" alt="Coming Soon.." width="100%" /></a>
+							<figcaption>
+								Coming Soon...
+							</figcaption>
+						</div>
+					</figure>
+					<h3><a href="#">Projects Coming Soon..</a></h3>
+					<p>New projects will be uploaded soon.</p>
+				</article>
+				<article>
+					<figure>
+						<div>
+							<a href="#"><img src="./imgs/pic.jpg" alt="Coming Soon.." width="100%" /></a>
+							<figcaption>
+								Coming Soon...
+							</figcaption>
+						</div>
+					</figure>
+					<h3><a href="#">Projects Coming Soon..</a></h3>
+					<p>New projects will be uploaded soon.</p>
+				</article>
+				<article>
+					<figure>
+						<div>
+							<a href="#"><img src="./imgs/pic.jpg" alt="Coming Soon.." width="100%" /></a>
+							<figcaption>
+								Coming Soon...
+							</figcaption>
+						</div>
+					</figure>
+					<h3><a href="#">Projects Coming Soon..</a></h3>
+					<p>New projects will be uploaded soon.</p>
+				</article>
+				<!--
+				<article>
+					<figure>
+						<div>
+							<a href="https://public.tableau.com/app/profile/ritabrata.chakraborty6795/viz/StudentPerformanceAnalysis_17058730007000/Dashboard1"><img src="./imgs/projects/Student_Performance.png" alt="Workplace 3 - Chamber of Commerce" width="100%" /></a>
+							<figcaption>
+								Student Performance Dashboard
+							</figcaption>
+						</div>
+					</figure>
+					<h3><a href="https://github.com/RitoChak/Student-Performance-Exploratory-Data-Analysis">Student Performance Exploratory Data Analysis</a></h3>
+					<p>This project contains the exploratory data analysis and model training of a student performance indicator dataset. The data cleaning, analysis and visualization has been done on Jupyter Notebook. The visualization has also been done on tableau.					</p>
+				</article>-->
+			</div>
+		</section>
+
+		<!-- Certificates -->
+		<section id="certificates" class="certificates container">
+			<h2>
+				<small></small>
+				Certification Courses
+			</h2>
+			<h2><small>Specialization Courses</small></h2>
+			<div class="jobs">
+				<article>
+					<figure>
+						<div>
+							<a href="https://coursera.org/share/97540d91029f2c02c22653f41946d201"><img src="./imgs/Certificates/DA_Spec.jpg" alt="Obesity" width="100%" /></a>
+							<figcaption>
+								Google Data Analytics Professional Certificate
+							</figcaption>
+						</div>
+					</figure>
+					<h3><small><a href="https://coursera.org/share/97540d91029f2c02c22653f41946d201">Google Data Analytics Professional Certificate</a></small></h3>
+					<p></p>
+				</article>
+				<article>
+					<figure>
+						<div>
+							<a href="https://coursera.org/share/e73c795e9530ca5a1aada0a8ec114906"><img src="./imgs/Certificates/ML_Special.jpg" alt="ML-Specialization" width="100%" /></a>
+							<figcaption>
+								Machine Learning Specialization
+							</figcaption>
+						</div>
+					</figure>
+					<h3><small><a href="https://coursera.org/share/e73c795e9530ca5a1aada0a8ec114906">Machine Learning Specialization</a></small></h3>
+					<p></p>
+				</article>
+				<article>
+					<figure>
+						<div>
+							<a href="https://coursera.org/share/064b509b6b7b8c641edd315296f8e33e"><img src="./imgs/Certificates/DL_Special.jpg" alt="Workplace 3 - Chamber of Commerce" width="100%" /></a>
+							<figcaption>
+								Deep Learning Specialization
+							</figcaption>
+						</div>
+					</figure>
+					<h3><small><a href="https://coursera.org/share/064b509b6b7b8c641edd315296f8e33e">Deep Learning Specialization</a></small></h3>
+					<p></p>
+				</article>
+				<article>
+					<figure>
+						<div>
+							<a href="https://coursera.org/share/f6e4c0b08298660a17941b2b638d1e3c"><img src="./imgs/Certificates/Maths_Spec.jpg" alt="Workplace 3 - Chamber of Commerce" width="100%" /></a>
+							<figcaption>
+								Mathematics for Machine Learning and Data Science Specialization
+							</figcaption>
+						</div>
+					</figure>
+					<h3><small><a href="https://coursera.org/share/f6e4c0b08298660a17941b2b638d1e3c">Mathematics for Machine Learning and Data Science Specialization</a></small></h3>
+					<p></p>
+				</article>
+				<article>
+					<figure>
+						<div>
+							<a href="https://coursera.org/share/fc9331a9dd8aa7f91582887deaa3b9a0"><img src="./imgs/Certificates/Git.jpg" alt="Workplace 3 - Chamber of Commerce" width="100%" /></a>
+							<figcaption>
+								Introduction to Git and Github
+							</figcaption>
+						</div>
+					</figure>
+					<h3><small><a href="https://coursera.org/share/fc9331a9dd8aa7f91582887deaa3b9a0">Introduction to Git and Github</a></small></h3>
+					<p></p>
+				</article>
+				<!--<article>
+					<figure>
+						<div>
+							<img src="./imgs/projects/Student_Performance.png" alt="Workplace 3 - Chamber of Commerce" width="100%" />
+							<figcaption>
+								Student Performance Dashboard
+							</figcaption>
+						</div>
+					</figure>
+					<h3>Student Performance Exploratory Data Analysis</h3>
+					<div>2013-2018</div>
+					<p>A small to large business organisation that helps facilitate advice and support.</p>
+				</article>-->
+			</div>
+			<h2><small>Individual Courses</small></h2>
+			<div class="jobs">
+				<article>
+					<figure>
+						<div>
+							<a href="https://coursera.org/share/4be7ff1b7156f0a738bc0b45fa687da7"><img src="./imgs/Certificates/Py_1.jpg" alt="Python-1" width="100%" /></a>
+							<figcaption>
+								Programming for Everybody (Getting Started with Python)
+							</figcaption>
+						</div>
+					</figure>
+					<h3><small><a href="https://coursera.org/share/4be7ff1b7156f0a738bc0b45fa687da7">Programming for Everybody (Getting Started with Python)</a></small></h3>
+					<p></p>
+				</article>
+				<article>
+					<figure>
+						<div>
+							<a href="https://coursera.org/share/d17a98ae600341f24d33170557578e6a"><img src="./imgs/Certificates/Py_2.jpg" alt="Python-2" width="100%" /></a>
+							<figcaption>
+								Python Data Structures
+							</figcaption>
+						</div>
+					</figure>
+					<h3><small><a href="https://coursera.org/share/d17a98ae600341f24d33170557578e6a">Python Data Structures</a></small></h3>
+					<p></p>
+				</article>
+				<article>
+					<figure>
+						<div>
+							<a href="https://coursera.org/share/f61b72576e6cc03ea8a31887a530482a"><img src="./imgs/Certificates/Py_3.jpg" alt="Python-3" width="100%" /></a>
+							<figcaption>
+								Using Python to Access Web Data
+							</figcaption>
+						</div>
+					</figure>
+					<h3><small><a href="https://coursera.org/share/f61b72576e6cc03ea8a31887a530482a">Using Python to Access Web Data</a></small></h3>
+					<p></p>
+				</article>
+				<article>
+					<figure>
+						<div>
+							<a href="https://coursera.org/share/d480fbddd4d10d136dcc6db9f432e63a"><img src="./imgs/Certificates/Py_4.jpg" alt="Python-2" width="100%" /></a>
+							<figcaption>
+								Using Databases with Python
+							</figcaption>
+						</div>
+					</figure>
+					<h3><small><a href="https://coursera.org/share/d480fbddd4d10d136dcc6db9f432e63a">Using Databases with Python</a></small></h3>
+					<p></p>
+				</article>
+				<article>
+					<figure>
+						<div>
+							<a href="https://coursera.org/share/201a87d2036813c2b4447ce7bca2fc46"><img src="./imgs/Certificates/Learn.jpg" alt="Python-2" width="100%" /></a>
+							<figcaption>
+								Learning How to Learn
+							</figcaption>
+						</div>
+					</figure>
+					<h3><small><a href="https://coursera.org/share/201a87d2036813c2b4447ce7bca2fc46">Learning How to Learn: Powerful mental tools to help you master tough subjects</a></small></h3>
+					<p></p>
+				</article>
+				<article>
+					<figure>
+						<div>
+							<a href="https://coursera.org/share/139b2107df4cdf2d586b65bdc29037d6"><img src="./imgs/Certificates/AI.jpg" alt="Python-2" width="100%" /></a>
+							<figcaption>
+								AI for Everyone
+							</figcaption>
+						</div>
+					</figure>
+					<h3><small><a href="https://coursera.org/share/139b2107df4cdf2d586b65bdc29037d6">AI for Everyone</a></small></h3>
+					<p></p>
+				</article>
+			</div>
+		</section>
+
+
+<!--
+		<section class="work-experience container">
+			<h2>
+				<small>Recent</small>
+				Work Experience
+			</h2>
+			<div class="jobs">
+				<article>
+					<figure>
+						<div>
+							<img src="./imgs/workplace-1.jpg" alt="Workplace 1 - YouTube Creator" width="100%" />
+							<figcaption>
+								Workplace - 1 YouTube Creator
+							</figcaption>
+						</div>
+					</figure>
+					<h3>YouTube Content Creator</h3>
+					<div>2020-current</div>
+					<p>Content creation online teaching people about how to code using HTML, CSS, JS.</p>
+				</article>
+				<article>
+					<figure>
+						<div>
+							<img src="./imgs/workplace-2.jpg" alt="Workplace 2 - Moshi Moshi Marketing" width="100%" />
+							<figcaption>
+								Workplace - Moshi Moshi Marketing
+							</figcaption>
+						</div>
+					</figure>
+					<h3>Moshi Moshi Marketing</h3>
+					<div>20018-2020</div>
+					<p>Marketing agency building websites and programming them from the ground up. </p>
+				</article>
+			</div>
+		</section>
+	-->
+
+		<!-- Chatbot
+		<section class="chatbot container">
+			<h2>
+				<small>
+					Talk to me
+				</small>
+				Chatbot
+			</h2>
+			<div class="chatbot-blue">
+				<div class="chat-info">
+					<h3>Azure AI Chatbot</h3>
+					<p>I've put together a chatbot here which knows all my skills, work experience and has a copy of my CV/Resume. You can use it to ask questions about me to get a better idea of who I am and what I've done.</p>
+					<p>You can also download my resume here if you want to take a look at it.  I'm currently looking for new opportunities so if you have a project you think I'd be a good fit for, please get in touch!</p>
+					<a href="./Sample_Resume_Template.pdf" class="button black">Download Resume</a>
+				</div>
+				<div class="chat-box">
+					<div class="scroll-area">
+						<ul id="chat-log">
+							<li>
+								<span class="avatar bot">AI</span>
+								<div class="message">
+									Hi, I'm a friendly chatbot that lets you interactive with this portfolio and CV. How can I help?
+								</div>
+							</li>
+							<li>
+								<span class="avatar user">User</span>
+								<div class="message">
+									I have a question to ask you about this resume
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="chat-message">
+						<input type="text" placeholder="Hey Adrian, what skills are you best at?">
+						<button class="button black">Send</button>
+					</div>
+				</div>
+			</div>
+		</section>
+		-->
+
+		<section id="contact" class="contact-me">
+		    <h2>Contact Me</h2>
+		    <div class="holder-blue">
+		            <ul>
+		                <li>Phone: <a href="tel:+917980613785">+91 7980613785</a></li>
+		                <li>E-mail: <a href="mailto:ritabratac1997@gmail.com">ritabratac1997@gmail.com</a></li>
+		                <li>Alternative E-mail: <a href="mailto:ritochak7@gmail.com">ritochak7@gmail.com</a></li>
+		            </ul>
+		    </div>
+		    <h2>
+		    	<small>Find me on :
+		    	</small>
+		    </h2>
+
+		    <ul class="social-footer container">
+		    	<div class="holder-blue">
+					<div class="left-column">
+						<ul class="social-links-bottom">
+							<li><a href="https://github.com/RitoChak">
+							<img src="./imgs/socials/github.png" alt="GitHub" width="48" /></li>
+							<li><a href="https://www.linkedin.com/in/ritabrata-chakraborty-065201257/">
+							<img src="./imgs/socials/linkedin.png" alt="LinkedIn" width="48" />
+						</a></li>
+						</ul>
+					</div>
+				</div>
+			</ul>
+		</section>
+
+
+	</main>
+</body>
+</html>
+
+
+
+
