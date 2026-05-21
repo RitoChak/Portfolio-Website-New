@@ -111,6 +111,12 @@ main > section:last-of-type {
     font-size: 10px;
     margin-left: 6px;
     display: inline-block;
+    transition: var(--transition-smooth);
+}
+
+/* State change for dropdown arrow indicator when opened */
+.dropdown.active .dropdown-trigger .arrow {
+    transform: rotate(180deg);
 }
 
 .dropdown-menu {
@@ -144,6 +150,7 @@ main > section:last-of-type {
     color: var(--blue-800);
 }
 
+/* Desktop Hover Interaction Rules */
 @media (min-width: 993px) {
     .dropdown:hover .dropdown-menu {
         opacity: 1;
@@ -226,6 +233,12 @@ main > section:last-of-type {
     border: none;
     font-size: 24px;
     cursor: pointer;
+    color: var(--base-800);
+    transition: var(--transition-smooth);
+}
+
+.mobile-toggle.active {
+    transform: rotate(90deg);
 }
 
 /* ==========================================================================
@@ -568,7 +581,14 @@ main > section:last-of-type {
    10. Certifications Tracking Matrix
    ========================================================================== */
 .cert-grid {
+    display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+}
+
+/* Synchronizes sub-certificate styling with your main cert grid class setup */
+.sub-certs {
+    margin-top: 20px;
 }
 
 .cert-card {
@@ -577,6 +597,10 @@ main > section:last-of-type {
     padding: 20px;
     text-align: center;
     transition: var(--transition-smooth);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .cert-card:hover {
@@ -589,32 +613,27 @@ main > section:last-of-type {
     border-radius: 6px;
     margin-bottom: 15px;
     width: 100%;
+    height: auto;
+    object-fit: contain;
 }
 
 .cert-card h4 {
     font-size: 15px;
     color: var(--base-800);
+    margin-bottom: 4px;
+}
+
+.cert-card small {
+    display: block;
+    font-size: 12px;
+    color: var(--base-400);
+    margin-top: auto;
 }
 
 .sub-cert-heading {
     font-size: 22px;
     margin: 50px 0 20px;
     text-align: center;
-}
-
-.individual-certs-list {
-    max-width: 800px;
-    margin: 0 auto;
-    list-style: none;
-}
-
-.individual-certs-list li {
-    background-color: var(--base-100);
-    padding: 12px 20px;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    font-weight: 600;
-    font-size: 15px;
 }
 
 /* ==========================================================================
@@ -651,8 +670,18 @@ main > section:last-of-type {
     border-radius: var(--border-radius-md);
 }
 
+/* CRITICAL FIX: Direct layout handlers to wrap ultra-long emails on small phones */
+.contact-methods li div {
+    min-width: 0;
+    flex: 1;
+}
+
 .contact-link {
     font-weight: 600;
+    word-break: break-all;
+    overflow-wrap: break-word;
+    white-space: normal;
+    display: inline-block;
 }
 
 /* ==========================================================================
@@ -704,7 +733,7 @@ main > section:last-of-type {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
     body {
         padding-top: 80px;
     }
@@ -717,18 +746,63 @@ main > section:last-of-type {
     .mobile-toggle {
         display: block;
     }
+    
+    /* MOBILE NAV ROUTINE: Modified to slide open via javascript handling */
     .nav-menu {
         position: fixed;
         top: 80px;
-        left: 0;
-        right: 0;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
         background: #ffffff;
         flex-direction: column;
-        padding: 20px;
+        padding: 40px 20px;
         box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-        display: none; /* Controlled by scripts.js mobile active toggle handlers */
+        transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        display: flex; 
+        gap: 25px;
+        overflow-y: auto;
+        z-index: 1999;
     }
     
+    /* Reveal state when .active class is applied by script */
+    .nav-menu.active {
+        left: 0;
+    }
+    
+    /* Setup for mobile navigation dropdown rendering stacks */
+    .nav-menu .dropdown {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .nav-menu .dropdown .dropdown-trigger {
+        width: 100%;
+        max-width: 280px;
+    }
+    
+    .nav-menu .dropdown .dropdown-menu {
+        display: none;
+        position: static;
+        width: 100%;
+        max-width: 280px;
+        box-shadow: none;
+        background-color: var(--base-100);
+        transform: none;
+        opacity: 1;
+        visibility: visible;
+        margin-top: 8px;
+    }
+    
+    /* Dynamic Display panel mapping when triggers are clicked */
+    .nav-menu .dropdown.active .dropdown-menu,
+    .call-to-action .dropdown.active .dropdown-menu {
+        display: block !important;
+    }
+    
+    /* Hero layout structural adjustments */
     .hero-content {
         padding: 40px 20px;
     }
