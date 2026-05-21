@@ -8,8 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ---- DOM Elements Initialization ----
     const menuToggle = document.getElementById('menuToggle');
     const navMenu = document.getElementById('menu');
-    const dropdownTrigger = document.querySelector('.dropdown-trigger');
-    const dropdownMenu = document.querySelector('.dropdown-menu');
+    const dropdownTriggers = document.querySelectorAll('.dropdown-trigger');
     const navLinks = document.querySelectorAll('.nav-link, .dropdown-menu a, .nav-btn');
 
     // ---- Mobile Hamburger Menu Mechanics ----
@@ -31,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * Explicitly forces the navigation drawer to shut down clean.
      */
     function closeMobileMenu() {
-        if (navMenu.classList.contains('active')) {
+        if (navMenu && navMenu.classList.contains('active')) {
             navMenu.classList.remove('active');
             menuToggle.classList.remove('active');
             menuToggle.setAttribute('aria-expanded', 'false');
@@ -48,32 +47,44 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ---- Mobile Touch-Support for Nested Project Dropdown ----
-    if (dropdownTrigger && dropdownMenu) {
-        dropdownTrigger.addEventListener('click', (e) => {
+    dropdownTriggers.forEach(trigger => {
+        trigger.addEventListener('click', (e) => {
             // Check if window view is in a tablet or mobile responsive state
             if (window.innerWidth <= 992) {
                 e.preventDefault(); // Stop instant scroll anchor jumps
-                const isDropdownOpen = dropdownMenu.classList.toggle('show');
-                dropdownTrigger.classList.toggle('open');
-                dropdownTrigger.setAttribute('aria-expanded', isDropdownOpen);
+                e.stopPropagation(); // Prevent global document click handler from firing
+                
+                const parentDropdown = trigger.closest('.dropdown');
+                if (parentDropdown) {
+                    const isDropdownOpen = parentDropdown.classList.toggle('active');
+                    trigger.setAttribute('aria-expanded', isDropdownOpen);
+                }
             }
         });
-    }
+    });
 
     // ---- Smooth Navigation & Event Cleanup Routines ----
     // Automatically close the navbar when clicking any navigational link
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
             closeMobileMenu();
-            if (dropdownMenu) dropdownMenu.classList.remove('show');
-            if (dropdownTrigger) dropdownTrigger.classList.remove('open');
+            document.querySelectorAll('.dropdown').forEach(dropdown => {
+                dropdown.classList.remove('active');
+                const trigger = dropdown.querySelector('.dropdown-trigger');
+                if (trigger) trigger.setAttribute('aria-expanded', 'false');
+            });
         });
     });
 
     // Global Click-away: Close open responsive layers if you tap anywhere outside them
     document.addEventListener('click', (event) => {
-        if (!navMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+        if (navMenu && !navMenu.contains(event.target) && !menuToggle.contains(event.target)) {
             closeMobileMenu();
+            document.querySelectorAll('.dropdown').forEach(dropdown => {
+                dropdown.classList.remove('active');
+                const trigger = dropdown.querySelector('.dropdown-trigger');
+                if (trigger) trigger.setAttribute('aria-expanded', 'false');
+            });
         }
     });
 
@@ -81,7 +92,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape') {
             closeMobileMenu();
-            if (dropdownMenu) dropdownMenu.classList.remove('show');
+            document.querySelectorAll('.dropdown').forEach(dropdown => {
+                dropdown.classList.remove('active');
+                const trigger = dropdown.querySelector('.dropdown-trigger');
+                if (trigger) trigger.setAttribute('aria-expanded', 'false');
+            });
         }
     });
 
