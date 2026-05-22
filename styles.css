@@ -448,22 +448,21 @@ code {
 
     .nav-menu {
         /*
-            Full-screen overlay. Uses height: calc(100dvh - header) so it
-            always fills the remaining viewport height including on mobile
-            browsers where the address bar shrinks/expands.
-            z-index 2500 ensures it sits above ALL page content including
-            the hero photo and any other stacked elements.
+            Full-screen overlay adjustment: Uses safe height clamp assignments 
+            and switches alignments from center to flex-start to layout 
+            un-truncated dropdown blocks correctly inside scroll containers.
         */
         position: fixed;
         top: var(--header-h);
         left: 0;
         right: 0;
-        height: calc(100dvh - var(--header-h));
+        min-height: calc(100dvh - var(--header-h));
+        max-height: calc(100dvh - var(--header-h));
         background: var(--clr-surface);
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        padding: var(--space-lg) var(--space-md);
+        justify-content: flex-start;
+        padding: var(--space-xl) var(--space-md) var(--space-2xl) var(--space-md);
         gap: var(--space-md);
         overflow-y: auto;
         z-index: 2500;
@@ -948,7 +947,7 @@ code {
     color: var(--clr-navy);
 }
 
-/* Responsive grid — auto-fit, minimum 200px per card */
+/* Responsive grid — auto-fill, minimum 200px per card */
 .certs__grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
