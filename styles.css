@@ -1,824 +1,1143 @@
 /**
- * Ritabrata Chakraborty — Core Portfolio Design System
- * Architecture: Mobile-First Modern Flexbox, CSS Grid & Symmetrical Split Component Design
+ * Ritabrata Chakraborty — Portfolio Stylesheet
+ * Architecture: Mobile-first, CSS custom properties, BEM-ish naming
+ * Fonts: Syne (headings) + DM Sans (body)
+ * Theme: Deep navy & amber accent — refined, research-forward
  */
 
 /* ==========================================================================
-   1. Reset & Global Variables
-   ========================================================================== */
+   1. CSS CUSTOM PROPERTIES (Design Tokens)
+   Centralise all colours, spacing and animation values here so changing
+   the theme is a one-place edit.
+========================================================================== */
+:root {
+    /* Colour palette */
+    --clr-bg:          #f8f7f4;       /* Warm off-white page background         */
+    --clr-surface:     #ffffff;       /* Card / panel background                 */
+    --clr-navy:        #0b1f3a;       /* Primary dark — headings, footer         */
+    --clr-navy-80:     rgba(11,31,58,.08); /* Subtle tint for borders / shadows  */
+    --clr-accent:      #e8a020;       /* Amber gold accent                       */
+    --clr-accent-lt:   #fef3dc;       /* Light amber tint for card backgrounds   */
+    --clr-blue:        #1a57c8;       /* Link / button blue                      */
+    --clr-blue-lt:     #e8f0fe;       /* Light blue tint                         */
+    --clr-text:        #3a3a3a;       /* Body text                               */
+    --clr-text-muted:  #6b7280;       /* Secondary / caption text                */
+    --clr-border:      #e5e7eb;       /* Subtle dividers                         */
+    --clr-wip:         #d97706;       /* Amber for "In Progress" badge           */
+    --clr-pub:         #16a34a;       /* Green for "Published" badge             */
+
+    /* Typography scale */
+    --font-display:    'Syne', sans-serif;
+    --font-body:       'DM Sans', sans-serif;
+    --fs-xs:           0.75rem;   /* 12px */
+    --fs-sm:           0.875rem;  /* 14px */
+    --fs-base:         1rem;      /* 16px */
+    --fs-md:           1.125rem;  /* 18px */
+    --fs-lg:           1.375rem;  /* 22px */
+    --fs-xl:           1.75rem;   /* 28px */
+    --fs-2xl:          2.25rem;   /* 36px */
+    --fs-3xl:          3rem;      /* 48px */
+    --fs-4xl:          3.75rem;   /* 60px */
+
+    /* Spacing */
+    --space-xs:   0.5rem;
+    --space-sm:   1rem;
+    --space-md:   1.5rem;
+    --space-lg:   2.5rem;
+    --space-xl:   4rem;
+    --space-2xl:  6rem;
+
+    /* Layout */
+    --max-w:       1320px;
+    --header-h:    72px;   /* Used for padding-top on body and scroll-margin */
+
+    /* Effects */
+    --radius-sm:   8px;
+    --radius-md:   14px;
+    --radius-lg:   24px;
+    --radius-full: 9999px;
+    --shadow-sm:   0 1px 4px rgba(0,0,0,.06);
+    --shadow-md:   0 4px 16px rgba(0,0,0,.09);
+    --shadow-lg:   0 12px 40px rgba(0,0,0,.12);
+    --transition:  0.25s cubic-bezier(0.4,0,0.2,1);
+}
+
+
+/* ==========================================================================
+   2. RESET & BASE
+========================================================================== */
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-:root {
-    --base-100: #f1f1f1;
-    --base-400: #555555;
-    --base-800: #000000;
-    
-    --yellow: #ffda4b;
-    --yellow-100: #fffbe6;
-    
-    --blue: #0a61ae;
-    --blue-100: #e2f8ff;
-    --blue-800: #0a61ae;
-
-    --max-width: 1440px;
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --border-radius-lg: 24px;
-    --border-radius-md: 12px;
+html {
+    /* Smooth scroll for anchor links — JS handles mobile menu close */
+    scroll-behavior: smooth;
 }
 
 body {
-    font-family: "Open Sans", sans-serif;
-    font-size: 18px;
-    line-height: 1.6;
-    color: var(--base-400);
-    background-color: #ffffff;
+    font-family: var(--font-body);
+    font-size: var(--fs-base);
+    line-height: 1.65;
+    color: var(--clr-text);
+    background-color: var(--clr-bg);
+    /*
+        Offset so fixed header doesn't cover content when page loads.
+        Matches --header-h.
+    */
+    padding-top: var(--header-h);
     overflow-x: hidden;
-    padding-top: 100px; /* Protects hero layout from sticky nav occlusion */
 }
 
-h1, h2, h3, h4 {
-    color: var(--base-800);
-    line-height: 1.2;
-    font-weight: 700;
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
 }
 
 a {
+    color: var(--clr-blue);
     text-decoration: none;
-    color: var(--blue);
-    transition: var(--transition-smooth);
+    transition: color var(--transition);
 }
 
+a:hover { color: var(--clr-accent); }
+
+ul { list-style: none; }
+
+h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    color: var(--clr-navy);
+    line-height: 1.15;
+}
+
+code {
+    font-family: 'Courier New', monospace;
+    background: var(--clr-blue-lt);
+    color: var(--clr-blue);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: var(--fs-sm);
+}
+
+
 /* ==========================================================================
-   2. Structural Layout Containers & Uniform Section Spacing
-   ========================================================================== */
+   3. LAYOUT UTILITIES
+========================================================================== */
+/* Max-width wrapper, centred with horizontal padding */
 .container {
     width: 100%;
-    max-width: var(--max-width);
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0 40px;
+    max-width: var(--max-w);
+    margin-inline: auto;
+    padding-inline: var(--space-lg);
 }
 
-/* Enforces uniform gap between sections and fixes sticky nav anchor occlusion */
-main > section {
-    margin-bottom: 100px;
-    scroll-margin-top: 110px; /* Shifts target jump point lower to account for fixed 80px nav */
+/*
+    Uniform vertical padding for every section.
+    Also sets scroll-margin-top so anchor jumps clear the fixed header.
+*/
+.section-pad {
+    padding-block: var(--space-2xl);
+    scroll-margin-top: calc(var(--header-h) + 16px);
 }
 
-/* Prevents trailing empty structural space at the bottom of the DOM */
-main > section:last-of-type {
-    margin-bottom: 0;
+/* Centred section heading with decorative underline accent */
+.section-title {
+    font-size: var(--fs-2xl);
+    text-align: center;
+    margin-bottom: var(--space-xl);
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
 }
+
+/* Amber underline drawn with ::after */
+.section-title::after {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 4px;
+    border-radius: var(--radius-full);
+    background: var(--clr-accent);
+    margin: 10px auto 0;
+}
+
 
 /* ==========================================================================
-   3. Base UI Design Components (Buttons, Dropdowns, Cards)
-   ========================================================================== */
-.button {
+   4. BUTTONS
+   Two primary variants: filled (.btn--primary) and outlined (.btn--outline).
+   Small size modifier: .btn--sm.
+   Dark fill variant for project code links: .btn--dark.
+========================================================================== */
+.btn {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    padding: 14px 28px;
-    background-color: var(--blue);
-    color: #ffffff;
-    border-radius: var(--border-radius-md);
+    gap: var(--space-xs);
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    font-family: var(--font-body);
+    font-size: var(--fs-base);
     font-weight: 600;
-    font-size: 16px;
-    border: none;
+    border: 2px solid transparent;
     cursor: pointer;
     white-space: nowrap;
-    transition: var(--transition-smooth);
+    transition: background var(--transition), color var(--transition),
+                border-color var(--transition), transform var(--transition),
+                box-shadow var(--transition);
 }
 
-.button:hover {
-    background-color: var(--base-800);
-    color: #ffffff;
+.btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.btn:active { transform: translateY(0); }
+
+/* Filled blue */
+.btn--primary {
+    background: var(--clr-blue);
+    color: #fff;
+    border-color: var(--clr-blue);
+}
+.btn--primary:hover {
+    background: var(--clr-navy);
+    border-color: var(--clr-navy);
+    color: #fff;
 }
 
-/* Dropdown Sub-engine Architecture */
-.dropdown {
-    position: relative;
+/* Outlined */
+.btn--outline {
+    background: transparent;
+    color: var(--clr-navy);
+    border-color: var(--clr-navy);
+}
+.btn--outline:hover {
+    background: var(--clr-navy);
+    color: #fff;
 }
 
-.dropdown-trigger {
-    cursor: pointer;
+/* Small */
+.btn--sm {
+    padding: 8px 16px;
+    font-size: var(--fs-sm);
+    border-radius: var(--radius-sm);
 }
 
-.dropdown-trigger .arrow {
-    font-size: 10px;
-    margin-left: 6px;
+/* Dark fill (used for GitHub code links on project cards) */
+.btn--dark {
+    background: var(--clr-navy);
+    color: #fff;
+    border-color: var(--clr-navy);
+}
+.btn--dark:hover {
+    background: var(--clr-blue);
+    border-color: var(--clr-blue);
+    color: #fff;
+}
+
+
+/* ==========================================================================
+   5. DROPDOWN COMPONENT
+   Shared by: nav resume button + hero resume button.
+
+   Desktop (≥993px): opens on hover via :hover + :focus-within.
+   Mobile  (≤992px): .open class toggled by JS click handler.
+
+   THE MOBILE BUG FIX (vs old site):
+   On mobile the dropdown-menu is position:static (not absolute), so it
+   expands inside the normal flow of the slide-out menu rather than being
+   clipped or invisible behind the overlay.  JS adds/removes .open on the
+   parent .dropdown to show/hide it.
+========================================================================== */
+.dropdown { position: relative; }
+
+/* Chevron character — rotates when dropdown is open */
+.chevron {
     display: inline-block;
-    transition: var(--transition-smooth);
+    font-size: 1.1em;
+    margin-left: 4px;
+    transition: transform var(--transition);
 }
-
-/* State change for dropdown arrow indicator when opened */
-.dropdown.active .dropdown-trigger .arrow {
+.dropdown.open .chevron,
+.dropdown:focus-within .chevron {
     transform: rotate(180deg);
 }
 
+/* The popup list */
 .dropdown-menu {
     position: absolute;
-    top: 100%;
-    right: 0;
-    background-color: #ffffff;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    border-radius: var(--border-radius-md);
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 220px;
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    padding: var(--space-xs);
     list-style: none;
-    min-width: 240px;
+    z-index: 3000;
+
+    /* Hidden by default — revealed on hover or .open */
     opacity: 0;
     visibility: hidden;
-    transform: translateY(10px);
-    transition: var(--transition-smooth);
-    z-index: 2100;
+    transform: translateY(8px);
+    transition: opacity var(--transition), visibility var(--transition),
+                transform var(--transition);
 }
 
-.dropdown-menu li a {
-    display: block;
-    padding: 10px 14px;
-    color: var(--base-400);
-    border-radius: 6px;
-    font-weight: 500;
-    font-size: 15px;
+/*
+    Nav dropdown specifically: align to the RIGHT edge of the button
+    so it doesn't overflow off-screen on the right side.
+*/
+.nav-dropdown .dropdown-menu {
+    left: auto;
+    right: 0;
 }
 
-.dropdown-menu li a:hover {
-    background-color: var(--blue-100);
-    color: var(--blue-800);
-}
-
-/* Desktop Hover Interaction Rules */
+/* Desktop hover/focus reveal */
 @media (min-width: 993px) {
-    .dropdown:hover .dropdown-menu {
+    .dropdown:hover .dropdown-menu,
+    .dropdown:focus-within .dropdown-menu {
         opacity: 1;
         visibility: visible;
         transform: translateY(0);
     }
 }
 
-/* Common Section Text Header Baselines */
-.about h2, .skills h2, .projects-section h2, .certificates-section h2, .contact-section h2 {
-    font-size: 36px;
-    text-align: center;
-    margin-bottom: 40px;
+/* JS-toggled reveal (works on all viewport sizes) */
+.dropdown.open .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
+.dropdown-menu li a {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: 10px 14px;
+    color: var(--clr-text);
+    font-size: var(--fs-sm);
+    font-weight: 500;
+    border-radius: var(--radius-sm);
+    transition: background var(--transition), color var(--transition);
+}
+.dropdown-menu li a:hover {
+    background: var(--clr-blue-lt);
+    color: var(--clr-blue);
+}
+.dropdown-menu li a i { width: 16px; text-align: center; }
+
+
 /* ==========================================================================
-   4. Site Navigation Header
-   ========================================================================== */
+   6. SITE HEADER & NAVIGATION
+========================================================================== */
 .site-header {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 80px;
-    background-color: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    inset-block-start: 0;
+    inset-inline: 0;
+    height: var(--header-h);
+    background: rgba(248, 247, 244, 0.96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--clr-border);
     z-index: 2000;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 40px;
+    padding-inline: var(--space-lg);
 }
 
+/* Logo */
 .logo-holder {
     display: flex;
     align-items: center;
-    font-weight: 700;
-    font-size: 20px;
-    color: var(--base-800);
+    gap: 10px;
+    text-decoration: none;
 }
 
-.logo-holder .logo {
+.logo-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--clr-navy);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: var(--fs-md);
+    font-weight: 800;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
-    background-color: var(--base-800);
-    color: #ffffff;
-    height: 44px;
-    width: 44px;
-    margin-right: 12px;
-    border-radius: 50%;
+    flex-shrink: 0;
 }
 
+.logo-text {
+    font-family: var(--font-display);
+    font-size: var(--fs-md);
+    font-weight: 700;
+    color: var(--clr-navy);
+}
+
+/* Desktop nav list */
 .nav-menu {
     display: flex;
     align-items: center;
+    gap: var(--space-xs);
     list-style: none;
-    gap: 15px;
 }
 
-.nav-menu .nav-link {
-    padding: 10px 16px;
-    color: var(--base-400);
-    font-weight: 600;
-    font-size: 16px;
+.nav-link {
+    padding: 8px 12px;
+    font-size: var(--fs-sm);
+    font-weight: 500;
+    color: var(--clr-text);
+    border-radius: var(--radius-sm);
+    transition: background var(--transition), color var(--transition);
+}
+.nav-link:hover {
+    background: var(--clr-blue-lt);
+    color: var(--clr-blue);
 }
 
-/* Fixes navbar button padding specifically so it aligns nicely with text items */
-.nav-menu .button {
-    padding: 10px 20px;
-    font-size: 15px;
+/* Nav dropdown trigger — inherits .btn styles but is smaller */
+.nav-dropdown .btn {
+    padding: 8px 16px;
+    font-size: var(--fs-sm);
 }
 
+/* Hamburger button — hidden on desktop */
 .mobile-toggle {
     display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
     background: none;
     border: none;
-    font-size: 24px;
     cursor: pointer;
-    color: var(--base-800);
-    transition: var(--transition-smooth);
+    padding: 4px;
+    border-radius: var(--radius-sm);
+    transition: background var(--transition);
 }
+.mobile-toggle:hover { background: var(--clr-blue-lt); }
 
-.mobile-toggle.active {
-    transform: rotate(90deg);
-}
-
-/* ==========================================================================
-   5. Hero Section
-   ========================================================================== */
-.hero {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: 40px;
-    align-items: center;
-}
-
-.hero-content {
-    background-color: var(--blue-100);
-    border-radius: var(--border-radius-lg);
-    padding: 50px;
-}
-
-.hero-content h1 {
-    font-size: 48px;
-    margin-bottom: 15px;
-}
-
-.hero-content h1 small {
+/* The three bars of the hamburger */
+.bar {
     display: block;
-    font-size: 20px;
-    font-weight: 400;
-    color: var(--base-400);
-    margin-bottom: 5px;
-}
-
-.hero-content .subheader {
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--blue-800);
-    margin-bottom: 24px;
-}
-
-.hero-content .hero-bio {
-    font-size: 16px;
-    margin-bottom: 35px;
-}
-
-/* SOLID FIX: Generates two mathematically identical 50% columns for the buttons */
-.hero-content .call-to-action {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); 
-    gap: 16px;
-    margin-bottom: 35px;
     width: 100%;
-    max-width: 460px; /* Fits text strings beautifully across screens */
+    height: 2px;
+    background: var(--clr-navy);
+    border-radius: 2px;
+    transition: transform var(--transition), opacity var(--transition);
 }
 
-/* Targets buttons inside the Hero grid block to fill their cells uniformly */
-.hero-content .call-to-action .button {
-    width: 100%;
-}
+/* Animate hamburger → X when menu is open */
+.mobile-toggle.active .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.mobile-toggle.active .bar:nth-child(2) { opacity: 0; }
+.mobile-toggle.active .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-/* Ensures the wrapped component container fills exactly 100% of its grid cell */
-.cta-dropdown-wrapper {
-    width: 100%;
-    display: flex;
-}
-
-.cta-dropdown-wrapper .dropdown-menu {
-    left: 0;
-    right: auto;
-    width: 100%; 
-}
-
-.hero-content .social-links {
-    display: flex;
-    gap: 24px;
-    font-size: 28px;
-}
-
-.hero-content .social-links a {
-    color: var(--base-800);
-    display: inline-block;
-}
-
-.hero-content .social-links a:hover {
-    color: var(--blue);
-    transform: translateY(-3px);
-}
-
-.hero-image-wrapper {
-    background-color: var(--yellow);
-    border-radius: var(--border-radius-lg);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 60px 40px;
-    height: 100%;
-}
-
-.profile-avatar {
-    border-radius: 50%;
-    object-fit: cover;
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
-    border: 6px solid #ffffff;
-    width: 280px;
-    height: 280px;
-}
 
 /* ==========================================================================
-   6. Tech Stack Infinite Carousel Section
-   ========================================================================== */
-.logos-carousel {
-    background-color: var(--base-100);
-    padding: 30px 0;
-    overflow: hidden;
-}
-
-.logos-carousel .track {
-    display: flex;
-    gap: 60px;
-    width: max-content;
-    align-items: center;
-    animation: marqueeAnimation 25s linear infinite;
-}
-
-@keyframes marqueeAnimation {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
-
-/* ==========================================================================
-   7. About Me & Research Publications
-   ========================================================================== */
-.about-grid {
-    display: grid;
-    grid-template-columns: 0.8fr 1.2fr;
-    gap: 40px;
-    align-items: start;
-    background-color: var(--blue-100);
-    border-radius: var(--border-radius-lg);
-    padding: 45px;
-}
-
-.about-img {
-    border-radius: var(--border-radius-md);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-    width: 100%;
-    display: block;
-}
-
-.about-text h3 {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-.about-text p {
-    margin-bottom: 18px;
-    font-size: 16px;
-}
-
-.research-highlight {
-    background-color: #ffffff;
-    padding: 25px;
-    border-radius: var(--border-radius-md);
-    margin-top: 30px;
-    border-left: 5px solid var(--blue);
-}
-
-.research-highlight h4 {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-.research-highlight blockquote {
-    margin: 15px 0;
-    padding-left: 15px;
-    border-left: 2px solid var(--base-100);
-    font-style: italic;
-    font-size: 15px;
-}
-
-/* ==========================================================================
-   8. Core Grid Skill Matrix
-   ========================================================================== */
-.skills-card-wrapper {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
-}
-
-.skills-category {
-    background-color: var(--blue-100);
-    padding: 30px;
-    border-radius: var(--border-radius-md);
-}
-
-.skills-category h3 {
-    font-size: 20px;
-    margin-bottom: 20px;
-    border-bottom: 2px solid rgba(10, 97, 174, 0.1);
-    padding-bottom: 10px;
-}
-
-.skills-category .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.skills-category .tags span {
-    background-color: #ffffff;
-    color: var(--blue-800);
-    padding: 8px 16px;
-    font-weight: 600;
-    font-size: 14px;
-    border-radius: 30px;
-}
-
-/* ==========================================================================
-   9. Deployments & Projects Section
-   ========================================================================== */
-.section-title-block {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.section-subtitle {
-    font-size: 18px;
-    color: var(--base-400);
-}
-
-.project-category-title {
-    font-size: 24px;
-    margin: 40px 0 20px;
-    border-left: 4px solid var(--yellow);
-    padding-left: 12px;
-}
-
-.project-grid, .cert-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
-}
-
-.project-card {
-    background-color: var(--yellow-100);
-    border-radius: var(--border-radius-lg);
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
-    display: flex;
-    flex-direction: column;
-    transition: var(--transition-smooth);
-}
-
-.project-card:hover {
-    transform: translateY(-5px);
-}
-
-.project-thumbnail {
-    position: relative;
-    aspect-ratio: 16/9;
-}
-
-.project-thumbnail img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.overlay-badge {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background-color: var(--base-800);
-    color: #ffffff;
-    padding: 6px 14px;
-    font-size: 12px;
-    font-weight: 700;
-    border-radius: 30px;
-}
-
-.project-info {
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
-
-.project-info h4 {
-    font-size: 20px;
-    margin-bottom: 10px;
-}
-
-.project-info p {
-    font-size: 15px;
-    margin-bottom: 20px;
-    flex-grow: 1;
-}
-
-.project-actions {
-    display: flex;
-    gap: 12px;
-}
-
-.link-btn {
-    padding: 10px 14px;
-    font-size: 14px;
-    font-weight: 600;
-    border-radius: 6px;
-    text-align: center;
-    flex: 1;
-}
-
-.link-btn.code-link {
-    background-color: var(--base-800);
-    color: #ffffff;
-}
-
-.link-btn.demo-link {
-    background-color: #ffffff;
-    color: var(--blue-800);
-    border: 1px solid var(--blue);
-}
-
-.project-card.coming-soon {
-    background-color: var(--base-100);
-    border: 2px dashed rgba(0,0,0,0.1);
-    justify-content: center;
-    text-align: center;
-}
-
-.status-pill {
-    background-color: rgba(0,0,0,0.05);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 600;
-    display: inline-block;
-    margin-top: 10px;
-}
-
-/* ==========================================================================
-   10. Certifications Tracking Matrix
-   ========================================================================== */
-.cert-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 30px;
-}
-
-/* Synchronizes sub-certificate styling with your main cert grid class setup */
-.sub-certs {
-    margin-top: 20px;
-}
-
-.cert-card {
-    background-color: var(--blue-100);
-    border-radius: var(--border-radius-md);
-    padding: 20px;
-    text-align: center;
-    transition: var(--transition-smooth);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.cert-card:hover {
-    transform: scale(1.03);
-    background-color: #ffffff;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-}
-
-.cert-card img {
-    border-radius: 6px;
-    margin-bottom: 15px;
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-}
-
-.cert-card h4 {
-    font-size: 15px;
-    color: var(--base-800);
-    margin-bottom: 4px;
-}
-
-.cert-card small {
-    display: block;
-    font-size: 12px;
-    color: var(--base-400);
-    margin-top: auto;
-}
-
-.sub-cert-heading {
-    font-size: 22px;
-    margin: 50px 0 20px;
-    text-align: center;
-}
-
-/* ==========================================================================
-   11. Strategic Contact & Channels
-   ========================================================================== */
-.contact-pitch {
-    font-size: 18px;
-    max-width: 650px;
-    margin: 0 auto 35px;
-    text-align: center;
-}
-
-.contact-container-box {
-    background-color: var(--blue-100);
-    border-radius: var(--border-radius-lg);
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 40px;
-}
-
-.contact-methods {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.contact-methods li {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    background-color: #ffffff;
-    padding: 15px 25px;
-    border-radius: var(--border-radius-md);
-}
-
-/* CRITICAL FIX: Direct layout handlers to wrap ultra-long emails on small phones */
-.contact-methods li div {
-    min-width: 0;
-    flex: 1;
-}
-
-.contact-link {
-    font-weight: 600;
-    word-break: break-all;
-    overflow-wrap: break-word;
-    white-space: normal;
-    display: inline-block;
-}
-
-/* ==========================================================================
-   12. Footer
-   ========================================================================== */
-.main-footer {
-    background-color: var(--base-800);
-    color: var(--base-100);
-    padding: 40px 0;
-    margin-top: 100px; /* Perfect proportional gap parity with section layouts */
-    font-size: 15px;
-}
-
-.footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.footer-socials {
-    display: flex;
-    gap: 24px;
-    font-size: 22px;
-}
-
-.footer-socials a {
-    color: var(--base-100);
-}
-
-.footer-socials a:hover {
-    color: var(--yellow);
-}
-
-/* ==========================================================================
-   13. Responsive Media Viewport Adaptations
-   ========================================================================== */
-@media (max-width: 1024px) {
-    .hero {
-        grid-template-columns: 1fr;
-    }
-    .about-grid {
-        grid-template-columns: 1fr;
-    }
-    main > section {
-        margin-bottom: 80px; 
-        scroll-margin-top: 90px; /* Adjust anchor spacing for medium viewport headers */
-    }
-}
-
+   7. MOBILE NAVIGATION OVERLAY
+   Slides in from the top when .active is toggled by JS.
+   On mobile the .dropdown-menu becomes position:static so it flows
+   naturally inside the menu rather than being clipped.
+========================================================================== */
 @media (max-width: 992px) {
-    body {
-        padding-top: 80px;
-    }
-    .container {
-        padding: 0 20px;
-    }
-    .site-header {
-        padding: 0 20px;
-    }
-    .mobile-toggle {
-        display: block;
-    }
-    
-    /* MOBILE NAV ROUTINE: Modified to slide open via javascript handling */
+    .mobile-toggle { display: flex; }
+
     .nav-menu {
+        /* Full-screen panel behind the header */
         position: fixed;
-        top: 80px;
-        left: -100%;
-        width: 100%;
-        height: calc(100vh - 80px);
-        background: #ffffff;
+        top: var(--header-h);
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--clr-surface);
         flex-direction: column;
-        padding: 40px 20px;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-        transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        display: flex; 
-        gap: 25px;
+        align-items: center;
+        justify-content: flex-start;
+        padding: var(--space-xl) var(--space-md);
+        gap: var(--space-sm);
         overflow-y: auto;
         z-index: 1999;
+
+        /* Hidden: slide up & invisible */
+        transform: translateY(-100%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.35s cubic-bezier(0.4,0,0.2,1),
+                    opacity 0.35s ease;
     }
-    
-    /* Reveal state when .active class is applied by script */
+
+    /* Visible state toggled by JS adding .active */
     .nav-menu.active {
-        left: 0;
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: all;
     }
-    
-    /* Setup for mobile navigation dropdown rendering stacks */
-    .nav-menu .dropdown {
+
+    .nav-link {
+        font-size: var(--fs-md);
+        padding: 10px 20px;
+    }
+
+    /*
+        MOBILE DROPDOWN FIX:
+        Make the dropdown-menu position:static so it expands inside the
+        menu panel's normal flow. This means it's always visible and
+        tappable — fixing the bug in the old site where the absolute-
+        positioned menu was clipped or hidden.
+        Visibility is controlled by max-height + .open toggle (JS).
+    */
+    .nav-dropdown {
         width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
     }
-    
-    .nav-menu .dropdown .dropdown-trigger {
-        width: 100%;
+
+    .nav-dropdown .btn {
+        width: 80%;
         max-width: 280px;
+        justify-content: center;
     }
-    
-    .nav-menu .dropdown .dropdown-menu {
-        display: none;
-        position: static;
-        width: 100%;
-        max-width: 280px;
-        box-shadow: none;
-        background-color: var(--base-100);
-        transform: none;
+
+    /* Override absolute positioning for mobile */
+    .nav-dropdown .dropdown-menu {
+        position: static;          /* Flow in the document, not floating */
+        transform: none;           /* Cancel desktop transform animation */
         opacity: 1;
         visibility: visible;
-        margin-top: 8px;
+        box-shadow: none;
+        border: 1px solid var(--clr-border);
+        background: var(--clr-bg);
+        width: 80%;
+        max-width: 280px;
+        margin-top: var(--space-xs);
+        border-radius: var(--radius-md);
+
+        /* Collapse by default; expand with .open */
+        max-height: 0;
+        overflow: hidden;
+        padding: 0;
+        transition: max-height 0.3s ease, padding 0.3s ease;
     }
-    
-    /* Dynamic Display panel mapping when triggers are clicked */
-    .nav-menu .dropdown.active .dropdown-menu,
-    .call-to-action .dropdown.active .dropdown-menu {
-        display: block !important;
+
+    /* JS adds .open to parent .dropdown → expands the list */
+    .nav-dropdown.open .dropdown-menu {
+        max-height: 300px;
+        padding: var(--space-xs);
     }
-    
-    /* Hero layout structural adjustments */
-    .hero-content {
-        padding: 40px 20px;
+}
+
+
+/* ==========================================================================
+   8. HERO SECTION
+========================================================================== */
+.hero {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: var(--space-lg);
+    align-items: center;
+    /* Match .container padding so text aligns with the rest of the page */
+    padding-inline: var(--space-lg);
+    max-width: var(--max-w);
+    margin-inline: auto;
+}
+
+/* Text block */
+.hero__eyebrow {
+    font-size: var(--fs-md);
+    color: var(--clr-text-muted);
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+
+.hero__name {
+    font-size: clamp(2.5rem, 5vw, var(--fs-4xl));
+    color: var(--clr-navy);
+    margin-bottom: var(--space-sm);
+    line-height: 1.05;
+}
+
+.hero__roles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    font-size: var(--fs-md);
+    font-weight: 500;
+    color: var(--clr-blue);
+    margin-bottom: var(--space-md);
+}
+
+.hero__roles .divider { color: var(--clr-accent); font-weight: 700; }
+
+.hero__bio {
+    font-size: var(--fs-base);
+    color: var(--clr-text);
+    max-width: 560px;
+    margin-bottom: var(--space-lg);
+    line-height: 1.7;
+}
+
+/* CTA row — flex so the dropdown and contact button sit side by side */
+.hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    align-items: flex-start;
+    margin-bottom: var(--space-lg);
+}
+
+/* Social icon links */
+.hero__socials {
+    display: flex;
+    gap: var(--space-md);
+    font-size: 1.6rem;
+}
+.hero__socials a {
+    color: var(--clr-navy);
+    transition: color var(--transition), transform var(--transition);
+}
+.hero__socials a:hover {
+    color: var(--clr-accent);
+    transform: translateY(-3px);
+}
+
+/* Photo block */
+.hero__photo-wrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Decorative amber ring behind the photo */
+.hero__photo-ring {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border: 3px solid var(--clr-accent);
+    transform: translate(14px, 14px);
+    z-index: 0;
+}
+
+.hero__photo {
+    position: relative;
+    z-index: 1;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--clr-surface);
+    box-shadow: var(--shadow-lg);
+}
+
+
+/* ==========================================================================
+   9. MARQUEE / TECH CAROUSEL
+========================================================================== */
+.marquee-section {
+    background: var(--clr-surface);
+    border-block: 1px solid var(--clr-border);
+    padding-block: var(--space-md);
+    overflow: hidden;
+}
+
+.marquee { overflow: hidden; }
+
+.marquee__track {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xl);
+    width: max-content;
+    /* Slide left continuously; JS pauses on hover */
+    animation: marquee 30s linear infinite;
+}
+
+/* Each logo kept consistent height */
+.marquee__track img {
+    height: 44px;
+    width: auto;
+    object-fit: contain;
+    filter: grayscale(30%);
+    transition: filter var(--transition);
+}
+.marquee__track img:hover { filter: grayscale(0); }
+
+@keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+
+/* ==========================================================================
+   10. ABOUT SECTION
+========================================================================== */
+.about__grid {
+    display: grid;
+    grid-template-columns: 0.75fr 1.25fr;
+    gap: var(--space-xl);
+    align-items: start;
+    background: var(--clr-blue-lt);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+}
+
+.about__img {
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    width: 100%;
+}
+
+.about__text-col h3 {
+    font-size: var(--fs-xl);
+    margin-bottom: var(--space-md);
+}
+.about__text-col p {
+    font-size: var(--fs-base);
+    margin-bottom: var(--space-md);
+    line-height: 1.7;
+}
+.about__text-col p:last-child { margin-bottom: 0; }
+
+
+/* ==========================================================================
+   11. SKILLS SECTION
+========================================================================== */
+.skills__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-md);
+}
+
+.skills__card {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    transition: box-shadow var(--transition), transform var(--transition);
+}
+.skills__card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-4px);
+}
+
+.skills__card-icon {
+    font-size: 2rem;
+    margin-bottom: var(--space-sm);
+}
+
+.skills__card h3 {
+    font-size: var(--fs-md);
+    margin-bottom: var(--space-md);
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--clr-accent-lt);
+}
+
+/* Tag pills */
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+}
+.tag-list li {
+    background: var(--clr-blue-lt);
+    color: var(--clr-blue);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+}
+
+
+/* ==========================================================================
+   12. RESEARCH SECTION
+========================================================================== */
+.research__card {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-md);
+    transition: box-shadow var(--transition);
+}
+.research__card:hover { box-shadow: var(--shadow-md); }
+
+/* Accent left border for the published paper */
+.research__card--published {
+    border-left: 5px solid var(--clr-pub);
+}
+.research__card--ongoing {
+    border-left: 5px solid var(--clr-wip);
+}
+
+.research__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+    flex-wrap: wrap;
+}
+
+/* Badge pills */
+.research__badge {
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+}
+.research__badge--pub {
+    background: #dcfce7;
+    color: var(--clr-pub);
+}
+.research__badge--wip {
+    background: #fef3c7;
+    color: var(--clr-wip);
+}
+
+.research__venue {
+    font-size: var(--fs-sm);
+    color: var(--clr-text-muted);
+    font-weight: 500;
+}
+
+.research__title {
+    font-size: var(--fs-lg);
+    margin-bottom: var(--space-xs);
+}
+.research__title a { color: var(--clr-navy); }
+.research__title a:hover { color: var(--clr-blue); }
+
+.research__authors {
+    font-size: var(--fs-sm);
+    color: var(--clr-text-muted);
+    margin-bottom: var(--space-sm);
+}
+
+.research__desc {
+    font-size: var(--fs-base);
+    line-height: 1.7;
+    margin-bottom: var(--space-md);
+}
+
+.research__link { align-self: flex-start; }
+
+
+/* ==========================================================================
+   13. PROJECTS SECTION
+========================================================================== */
+.projects__sub-title {
+    font-size: var(--fs-xl);
+    margin-bottom: var(--space-md);
+    padding-left: 14px;
+    border-left: 4px solid var(--clr-accent);
+}
+
+.projects__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-md);
+}
+
+/* Individual project card */
+.project-card {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow var(--transition), transform var(--transition);
+}
+.project-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-5px);
+}
+
+/* Thumbnail link wraps the image */
+.project-card__thumb-link { display: block; overflow: hidden; }
+
+.project-card__img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+.project-card__thumb-link:hover .project-card__img {
+    transform: scale(1.04);
+}
+
+.project-card__body {
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.project-card__body h4 {
+    font-size: var(--fs-md);
+    margin-bottom: var(--space-xs);
+}
+.project-card__body h4 a { color: var(--clr-navy); }
+.project-card__body h4 a:hover { color: var(--clr-blue); }
+
+.project-card__body p {
+    font-size: var(--fs-sm);
+    color: var(--clr-text-muted);
+    flex: 1;
+    margin-bottom: var(--space-md);
+    line-height: 1.65;
+}
+
+.project-card__links {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Coming soon placeholder */
+.projects__coming-soon {
+    display: flex;
+    justify-content: center;
+}
+.coming-soon-card {
+    background: var(--clr-surface);
+    border: 2px dashed var(--clr-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl) var(--space-2xl);
+    text-align: center;
+    color: var(--clr-text-muted);
+}
+.coming-soon-icon { font-size: 2.5rem; display: block; margin-bottom: var(--space-sm); }
+
+
+/* ==========================================================================
+   14. CERTIFICATES SECTION
+========================================================================== */
+/* Sub-heading above each cert group */
+.certs__sub-title {
+    font-size: var(--fs-xl);
+    margin-bottom: var(--space-md);
+    text-align: center;
+    color: var(--clr-navy);
+}
+
+/* Responsive grid — auto-fit, minimum 200px per card */
+.certs__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--space-md);
+}
+
+/* Individual cert card — also used as <a> element so no separate hover rule needed */
+.cert-card {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    transition: box-shadow var(--transition), transform var(--transition);
+    color: inherit;
+}
+.cert-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-4px);
+}
+
+.cert-card img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+}
+
+.cert-card__info {
+    padding: 14px var(--space-sm);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+}
+.cert-card__info h4 {
+    font-size: var(--fs-sm);
+    color: var(--clr-navy);
+    line-height: 1.3;
+}
+.cert-card__info small {
+    font-size: var(--fs-xs);
+    color: var(--clr-text-muted);
+}
+
+
+/* ==========================================================================
+   15. CONTACT SECTION
+========================================================================== */
+.contact__pitch {
+    text-align: center;
+    font-size: var(--fs-md);
+    max-width: 600px;
+    margin-inline: auto;
+    margin-bottom: var(--space-xl);
+    color: var(--clr-text-muted);
+}
+
+.contact__box {
+    background: var(--clr-blue-lt);
+    border-radius: var(--radius-lg);
+    max-width: 580px;
+    margin-inline: auto;
+    padding: var(--space-xl);
+}
+
+.contact__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+}
+
+.contact__list li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    background: var(--clr-surface);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: var(--radius-md);
+}
+
+.contact__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--clr-blue-lt);
+    color: var(--clr-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--fs-md);
+    flex-shrink: 0;
+}
+
+.contact__list li div {
+    min-width: 0;
+    flex: 1;
+}
+.contact__list li div strong {
+    display: block;
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--clr-text-muted);
+    margin-bottom: 2px;
+}
+
+.contact__link {
+    font-weight: 600;
+    color: var(--clr-navy);
+    /* Prevents long email addresses from overflowing on small screens */
+    word-break: break-all;
+    overflow-wrap: anywhere;
+}
+.contact__link:hover { color: var(--clr-blue); }
+
+/* Social icons row inside contact box */
+.contact__socials {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-md);
+    font-size: 1.75rem;
+}
+.contact__socials a { color: var(--clr-navy); }
+.contact__socials a:hover { color: var(--clr-blue); }
+
+
+/* ==========================================================================
+   16. FOOTER
+========================================================================== */
+.site-footer {
+    background: var(--clr-navy);
+    color: rgba(255,255,255,0.7);
+    padding-block: var(--space-lg);
+    font-size: var(--fs-sm);
+    margin-top: var(--space-2xl);
+}
+
+.footer__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+}
+
+.footer__socials {
+    display: flex;
+    gap: var(--space-md);
+    font-size: 1.35rem;
+}
+.footer__socials a { color: rgba(255,255,255,0.7); }
+.footer__socials a:hover { color: var(--clr-accent); }
+
+
+/* ==========================================================================
+   17. RESPONSIVE BREAKPOINTS
+========================================================================== */
+
+/* ---- Tablet (≤1024px) ---- */
+@media (max-width: 1024px) {
+    .hero {
+        grid-template-columns: 1fr;
+        /* Photo goes above text on narrow screens */
     }
-    .hero-content h1 {
-        font-size: 32px;
+    .hero__photo-wrap { order: -1; }
+    .hero__photo { width: 220px; height: 220px; }
+    .hero__photo-ring { width: 240px; height: 240px; }
+
+    .about__grid {
+        grid-template-columns: 1fr;
     }
-    
-    /* MOBILE OVERRIDE: Switches the hero buttons from side-by-side grids to elegant, stacked vertical blocks */
-    .hero-content .call-to-action {
-        grid-template-columns: 1fr; /* Stacks layout elements linearly down the mobile viewport */
-        max-width: 100%;
-        gap: 12px;
-    }
-    
-    .footer-content {
+}
+
+/* ---- Mobile (≤768px) ---- */
+@media (max-width: 768px) {
+    :root { --space-2xl: 4rem; }
+
+    .container { padding-inline: var(--space-sm); }
+    .site-header { padding-inline: var(--space-sm); }
+    .hero { padding-inline: var(--space-sm); }
+
+    .hero__name { font-size: 2.25rem; }
+    .hero__roles { font-size: var(--fs-base); }
+
+    /* Stack the CTA buttons vertically on small phones */
+    .hero__cta {
         flex-direction: column;
-        text-align: center;
+        align-items: stretch;
     }
+    .hero__cta .btn,
+    .hero__cta .dropdown,
+    .hero__cta .dropdown .btn { width: 100%; }
+
+    .about__grid { padding: var(--space-md); }
+
+    .section-title { font-size: var(--fs-xl); }
+
+    .footer__inner { flex-direction: column; text-align: center; }
+
+    .research__card { padding: var(--space-md); }
+}
+
+/* ---- Very small phones (≤400px) ---- */
+@media (max-width: 400px) {
+    .hero__photo { width: 180px; height: 180px; }
+    .hero__photo-ring { width: 196px; height: 196px; }
+    .certs__grid { grid-template-columns: 1fr 1fr; }
 }
