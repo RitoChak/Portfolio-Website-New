@@ -2,56 +2,101 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!--
+        viewport meta: ensures mobile browsers render at device width
+        and don't zoom out to show a "desktop" layout.
+    -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ritabrata Chakraborty | Data Scientist & Researcher</title>
-    
+    <meta name="description" content="Ritabrata Chakraborty — Data Analyst & Data Science Researcher. Published at COLING 2025. IIT Kharagpur. M.Sc. Physics.">
+    <meta name="author" content="Ritabrata Chakraborty">
+
+    <title>Ritabrata Chakraborty | Data Analyst & Researcher</title>
+
+    <!-- Google Fonts: Syne (bold display) + DM Sans (clean body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for GitHub/LinkedIn icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <link rel="stylesheet" href="./styles.css">
-    
     <link rel="icon" type="image/jpg" href="./imgs/favicon.jpg">
 </head>
 <body>
 
+    <!-- =====================================================================
+         HEADER / NAVIGATION
+         Fixed top bar. Mobile hamburger collapses the nav into a full-screen
+         slide-down overlay. "Download Resume" is a dropdown with 3 variants.
+    ====================================================================== -->
     <header class="site-header">
-        <a href="#" class="logo-holder" aria-label="Ritabrata Portfolio Home">
-            <div class="logo">R</div>
-            <div class="logo-text">Ritabrata's Portfolio</div>
+        <!-- Logo -->
+        <a href="#home" class="logo-holder" aria-label="Go to top">
+            <div class="logo-circle">R</div>
+            <span class="logo-text">Ritabrata's Portfolio</span>
         </a>
-        <nav aria-label="Primary Site Navigation">
-            <button class="mobile-toggle" id="menuToggle" aria-expanded="false" aria-controls="menu" aria-label="Toggle navigation menu">
-                <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h11"/>
-                </svg>
+
+        <nav aria-label="Primary navigation">
+            <!-- Hamburger button — hidden on desktop, visible on mobile -->
+            <button
+                class="mobile-toggle"
+                id="menuToggle"
+                aria-expanded="false"
+                aria-controls="menu"
+                aria-label="Toggle navigation menu"
+            >
+                <!-- Three-line SVG icon -->
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
             </button>
-            <ul id="menu" class="nav-menu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#about-me" class="nav-link">About Me</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
+
+            <!-- Nav items list -->
+            <ul id="menu" class="nav-menu" role="list">
+                <li><a href="#home"         class="nav-link">Home</a></li>
+                <li><a href="#about"        class="nav-link">About</a></li>
+                <li><a href="#skills"       class="nav-link">Skills</a></li>
+                <li><a href="#research"     class="nav-link">Research</a></li>
                 <li><a href="#certificates" class="nav-link">Certificates</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-                
-                <li class="dropdown">
-                    <button class="button nav-btn dropdown-trigger" aria-haspopup="true" aria-expanded="false">
-                        Download Resume <span class="arrow">▼</span>
+                <li><a href="#contact"      class="nav-link">Contact</a></li>
+
+                <!--
+                    Resume dropdown:
+                    - Desktop: opens on hover (CSS :hover + focus-within)
+                    - Mobile:  opens on click (JS toggles .open class)
+                    FIX vs old site: mobile dropdown now uses JS-toggled
+                    .open class so it renders in the normal flow (not absolute)
+                    and is fully tappable inside the slide-out menu.
+                -->
+                <li class="dropdown nav-dropdown" id="resumeDropdownNav">
+                    <button
+                        class="btn btn--primary dropdown-trigger"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        id="resumeTriggerNav"
+                    >
+                        Resume <span class="chevron" aria-hidden="true">&#8964;</span>
                     </button>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="./documents/Ritabrata_Chakraborty_Data_Scientist.pdf" download="Ritabrata_Chakraborty_Data_Scientist.pdf">
+                    <ul class="dropdown-menu" role="menu" aria-label="Resume versions">
+                        <li role="none">
+                            <a href="./documents/Ritabrata_Chakraborty_Data_Scientist.pdf"
+                               download role="menuitem">
+                                <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
                                 Data Scientist
                             </a>
                         </li>
-                        <li>
-                            <a href="./documents/Ritabrata_Chakraborty_Data_Analyst.pdf" download="Ritabrata_Chakraborty_Data_Analyst.pdf">
+                        <li role="none">
+                            <a href="./documents/Ritabrata_Chakraborty_Data_Analyst.pdf"
+                               download role="menuitem">
+                                <i class="fa-solid fa-magnifying-glass-chart" aria-hidden="true"></i>
                                 Data Analyst
                             </a>
                         </li>
-                        <li>
-                            <a href="./documents/Ritabrata_Chakraborty_Project_Coordinator.pdf" download="Ritabrata_Chakraborty_Project_Coordinator.pdf">
+                        <li role="none">
+                            <a href="./documents/Ritabrata_Chakraborty_Project_Coordinator.pdf"
+                               download role="menuitem">
+                                <i class="fa-solid fa-diagram-project" aria-hidden="true"></i>
                                 Project Coordinator
                             </a>
                         </li>
@@ -61,283 +106,583 @@
         </nav>
     </header>
 
+
     <main>
-        <section id="home" class="hero container">
-            <div class="hero-content">
-                <h1>
-                    <small>Hi, I'm</small>
-                    Ritabrata Chakraborty
-                </h1>
-                <p class="subheader">Data Scientist | Data Analyst | Project Coordinator</p>
-                <p class="hero-bio">
-                    Leveraging a solid mathematical and academic background as an M.Sc. Physics graduate from Osmania University to engineer smart solutions in data. My expertise bridges the gap between structured machine learning systems, statistical modeling, and advanced Natural Language Processing.
+
+        <!-- =================================================================
+             HERO SECTION
+             Two-column grid: left = text + CTAs, right = photo.
+             Stacks to single column on mobile.
+        ================================================================== -->
+        <section id="home" class="hero section-pad">
+            <div class="hero__text">
+                <p class="hero__eyebrow">Hi, I'm</p>
+                <h1 class="hero__name">Ritabrata<br>Chakraborty</h1>
+                <p class="hero__roles">
+                    <span>Data Analyst</span>
+                    <span class="divider" aria-hidden="true">·</span>
+                    <span>Data Scientist</span>
+                    <span class="divider" aria-hidden="true">·</span>
+                    <span>NLP Researcher</span>
                 </p>
-                
-                <div class="call-to-action">
-                    <div class="dropdown cta-dropdown-wrapper">
-                        <button class="button dropdown-trigger" aria-haspopup="true" aria-expanded="false">
-                            Download Resume <span class="arrow">▼</span>
+                <p class="hero__bio">
+                    M.Sc. Physics (Solid State) → Data & AI Research. I bridge
+                    rigorous scientific thinking with modern machine learning to
+                    extract meaning from complex datasets. Published researcher
+                    at <strong>COLING 2025</strong>, affiliated with
+                    <strong>IIT Kharagpur</strong>.
+                </p>
+
+                <!-- CTA row: Resume dropdown + Contact button -->
+                <div class="hero__cta">
+                    <!--
+                        Hero resume dropdown — separate instance from nav.
+                        Same JS logic applies: click-toggle on mobile,
+                        hover on desktop.
+                    -->
+                    <div class="dropdown" id="resumeDropdownHero">
+                        <button
+                            class="btn btn--primary dropdown-trigger"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                            id="resumeTriggerHero"
+                        >
+                            Download Resume
+                            <span class="chevron" aria-hidden="true">&#8964;</span>
                         </button>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="./documents/Ritabrata_Chakraborty_Data_Scientist.pdf" download="Ritabrata_Chakraborty_Data_Scientist.pdf">
+                        <ul class="dropdown-menu" role="menu" aria-label="Resume versions">
+                            <li role="none">
+                                <a href="./documents/Ritabrata_Chakraborty_Data_Scientist.pdf"
+                                   download role="menuitem">
+                                    <i class="fa-solid fa-chart-line" aria-hidden="true"></i>
                                     Data Scientist
                                 </a>
                             </li>
-                            <li>
-                                <a href="./documents/Ritabrata_Chakraborty_Data_Analyst.pdf" download="Ritabrata_Chakraborty_Data_Analyst.pdf">
+                            <li role="none">
+                                <a href="./documents/Ritabrata_Chakraborty_Data_Analyst.pdf"
+                                   download role="menuitem">
+                                    <i class="fa-solid fa-magnifying-glass-chart" aria-hidden="true"></i>
                                     Data Analyst
                                 </a>
                             </li>
-                            <li>
-                                <a href="./documents/Ritabrata_Chakraborty_Project_Coordinator.pdf" download="Ritabrata_Chakraborty_Project_Coordinator.pdf">
+                            <li role="none">
+                                <a href="./documents/Ritabrata_Chakraborty_Project_Coordinator.pdf"
+                                   download role="menuitem">
+                                    <i class="fa-solid fa-diagram-project" aria-hidden="true"></i>
                                     Project Coordinator
                                 </a>
                             </li>
                         </ul>
                     </div>
-                    <a href="#contact" class="button">Contact Me</a>
+
+                    <a href="#contact" class="btn btn--outline">Contact Me</a>
                 </div>
 
-                <div class="social-links">
-                    <a href="https://github.com/RitoChak" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+                <!-- Social icons -->
+                <div class="hero__socials">
+                    <a href="https://github.com/RitoChak"
+                       target="_blank" rel="noopener noreferrer"
+                       aria-label="GitHub profile">
                         <i class="fa-brands fa-github"></i>
                     </a>
-                    <a href="https://www.linkedin.com/in/ritabrata-chakraborty-065201257/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile">
-                        <i class="fa-brands fa-linkedin"></i>
+                    <a href="https://www.linkedin.com/in/ritabrata-chakraborty-065201257/"
+                       target="_blank" rel="noopener noreferrer"
+                       aria-label="LinkedIn profile">
+                        <i class="fa-brands fa-linkedin-in"></i>
                     </a>
                 </div>
             </div>
-            <div class="hero-image-wrapper">
-                <img src="./imgs/IMG_2144.JPG" alt="Ritabrata Chakraborty Portrait" class="profile-avatar" width="300" height="300">
+
+            <!-- Profile photo -->
+            <div class="hero__photo-wrap">
+                <img
+                    src="./imgs/IMG_2144.JPG"
+                    alt="Portrait of Ritabrata Chakraborty"
+                    class="hero__photo"
+                    width="340"
+                    height="340"
+                    loading="eager"
+                />
+                <!-- Decorative accent ring (CSS only) -->
+                <div class="hero__photo-ring" aria-hidden="true"></div>
             </div>
         </section>
 
-        <section class="logos-carousel" aria-label="Technology Stack Carousel">
+
+        <!-- =================================================================
+             TECH STACK MARQUEE
+             Infinite scrolling logo strip. CSS animation pauses on hover
+             (handled in scripts.js). Duplicated set of logos so loop is
+             seamless.
+        ================================================================== -->
+        <section class="marquee-section" aria-label="Technology stack">
             <div class="marquee">
-                <div class="track">
-                    <img src="./imgs/logos/python.png" alt="Python" width="100">
-                    <img src="./imgs/logos/SQL.png" alt="SQL" width="100">
-                    <img src="./imgs/logos/Pandas.png" alt="Pandas" width="140">
-                    <img src="./imgs/logos/Numpy.png" alt="NumPy" width="140">
-                    <img src="./imgs/logos/Tensorflow.png" alt="TensorFlow" width="130">
-                    <img src="./imgs/logos/Tableau.png" alt="Tableau" width="140">
-                    <img src="./imgs/logos/Excel.png" alt="Excel" width="90">
-                    <img src="./imgs/logos/python.png" alt="Python" width="100">
-                    <img src="./imgs/logos/SQL.png" alt="SQL" width="100">
-                    <img src="./imgs/logos/Pandas.png" alt="Pandas" width="140">
-                    <img src="./imgs/logos/Numpy.png" alt="NumPy" width="140">
-                    <img src="./imgs/logos/Tensorflow.png" alt="TensorFlow" width="130">
-                    <img src="./imgs/logos/Tableau.png" alt="Tableau" width="140">
-                    <img src="./imgs/logos/Excel.png" alt="Excel" width="90">
+                <div class="marquee__track">
+                    <img src="./imgs/logos/python.png"     alt="Python"     width="90">
+                    <img src="./imgs/logos/SQL.png"        alt="SQL"        width="90">
+                    <img src="./imgs/logos/Pandas.png"     alt="Pandas"     width="120">
+                    <img src="./imgs/logos/Numpy.png"      alt="NumPy"      width="120">
+                    <img src="./imgs/logos/Tensorflow.png" alt="TensorFlow" width="110">
+                    <img src="./imgs/logos/Tableau.png"    alt="Tableau"    width="120">
+                    <img src="./imgs/logos/Excel.png"      alt="Excel"      width="80">
+                    <!-- Duplicate set for seamless loop -->
+                    <img src="./imgs/logos/python.png"     alt=""           width="90"  aria-hidden="true">
+                    <img src="./imgs/logos/SQL.png"        alt=""           width="90"  aria-hidden="true">
+                    <img src="./imgs/logos/Pandas.png"     alt=""           width="120" aria-hidden="true">
+                    <img src="./imgs/logos/Numpy.png"      alt=""           width="120" aria-hidden="true">
+                    <img src="./imgs/logos/Tensorflow.png" alt=""           width="110" aria-hidden="true">
+                    <img src="./imgs/logos/Tableau.png"    alt=""           width="120" aria-hidden="true">
+                    <img src="./imgs/logos/Excel.png"      alt=""           width="80"  aria-hidden="true">
                 </div>
             </div>
         </section>
 
-        <section id="about-me" class="about container">
-            <h2>About Me</h2>
-            <div class="about-grid">
-                <div class="about-media">
-                    <img src="./imgs/Cover.png" alt="Analytical Visualization Graph Cover" class="about-img" loading="lazy">
+
+        <!-- =================================================================
+             ABOUT ME SECTION
+             Left: image. Right: bio + hobbies.
+             Stacks on mobile.
+        ================================================================== -->
+        <section id="about" class="about section-pad container">
+            <h2 class="section-title">About Me</h2>
+
+            <div class="about__grid">
+                <div class="about__img-col">
+                    <img
+                        src="./imgs/Cover.png"
+                        alt="Data visualization graphic"
+                        class="about__img"
+                        loading="lazy"
+                    >
                 </div>
-                <div class="about-text">
-                    <h3>From Physical Systems to Complex Data Ecosystems</h3>
+
+                <div class="about__text-col">
+                    <h3>Physicist → Data Scientist</h3>
                     <p>
-                        My academic path started in physical sciences, earning my B.Sc. from Vidyasagar College (Calcutta University) and an M.Sc. in Physics with a specialization in <strong>Solid State Physics</strong> from Osmania University. Deciphering underlying structures in data mirrored how I learned to understand equations of state in the universe—sparking my deep pivot into Data Science.
+                        I hold a <strong>B.Sc. in Physics</strong> from Vidyasagar College
+                        (Calcutta University) and an <strong>M.Sc. in Physics with
+                        Specialization in Solid State Physics</strong> from Osmania University,
+                        Hyderabad, graduating with an 8.56 CGPA with Distinction. The
+                        analytical discipline of physics — breaking complex systems into
+                        first-principle components — shapes how I approach every data problem.
                     </p>
                     <p>
-                        I work across Python workflows, Machine Learning architectures, Deep Learning models, and Natural Language Processing algorithms. Over time, I have engineered custom pipelines utilizing standard ecosystems like <code>scikit-learn</code>, <code>pandas</code>, <code>numpy</code>, and <code>matplotlib</code> alongside databases (SQL) and professional visual toolsets (Tableau, Power BI).
+                        My toolkit spans Python-based ML/DL pipelines
+                        (<code>scikit-learn</code>, <code>TensorFlow</code>,
+                        <code>pandas</code>, <code>numpy</code>), structured data analytics
+                        (SQL, Tableau, Power BI, Excel), and Natural Language Processing,
+                        including cross-lingual transfer and Vision-Language Models.
                     </p>
-                    
-                    <div class="research-highlight">
-                        <h4>🔬 Research & Publications</h4>
-                        <p>
-                            During my Research Internship at <strong>IIT Kharagpur</strong> under <strong>Prof. Animesh Mukherjee</strong>, I contributed to cross-lingual natural language optimization architectures which yielded a peer-reviewed paper:
-                        </p>
-                        <blockquote>
-                            <a href="https://aclanthology.org/2025.coling-industry.39/" target="_blank" rel="noopener">
-                                <strong>"On the Effective Transfer of Knowledge from English to Hindi Wikipedia"</strong>
-                            </a><br>
-                            <small>Paramita Das, Amartya Roy, Ritabrata Chakraborty, Animesh Mukherjee — <em>Published at COLING 2025</em></small>
-                        </blockquote>
-                        <p>
-                            Currently continuing collaboration targeting <strong>Bias Removal in Vision-Language Models (VLMs)</strong> and exploring multimodal AI paradigms.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="skills" class="skills container">
-            <h2>Technical Core Competencies</h2>
-            <div class="skills-card-wrapper">
-                <div class="skills-category">
-                    <h3>Languages & Core Tools</h3>
-                    <div class="tags"><span>Python</span><span>SQL</span><span>Excel / Google Sheets</span><span>Git / GitHub</span><span>Jira / Agile</span></div>
-                </div>
-                <div class="skills-category">
-                    <h3>Data Engineering & Analysis</h3>
-                    <div class="tags"><span>Pandas</span><span>NumPy</span><span>Statistical Modeling</span><span>Data Visualization</span><span>Tableau</span><span>Power BI</span></div>
-                </div>
-                <div class="skills-category">
-                    <h3>Advanced Intelligence</h3>
-                    <div class="tags"><span>Machine Learning</span><span>Deep Learning</span><span>Neural Networks</span><span>Natural Language Processing (NLP)</span><span>Vision-Language Models (VLM)</span></div>
+                    <p>
+                        At <strong>IIT Kharagpur</strong>, I implemented the core codebase
+                        and ran automatic and human judgment-based evaluations for a
+                        cross-lingual NLP framework that improved Hindi Wikipedia article
+                        quality by up to <strong>65%</strong> — work published at
+                        <a href="https://aclanthology.org/2025.coling-industry.39/"
+                           target="_blank" rel="noopener noreferrer">COLING 2025</a>.
+                        I am currently continuing this collaboration with research on
+                        <strong>Bias Removal in Vision-Language Models</strong>.
+                    </p>
+                    <p>
+                        Outside of data, I enjoy hiking &amp; trekking paired with
+                        photography, and both playing and watching football.
+                    </p>
                 </div>
             </div>
         </section>
 
 
+        <!-- =================================================================
+             SKILLS SECTION
+             Three category cards: Languages, Data/Analytics, AI/ML.
+        ================================================================== -->
+        <section id="skills" class="skills section-pad container">
+            <h2 class="section-title">Technical Skills</h2>
 
-        <section id="certificates" class="certificates-section container">
-            <h2>Professional Track Specializations</h2>
-            <div class="cert-grid">
-                <article class="cert-card">
-                    <a href="https://coursera.org/share/97540d91029f2c02c22653f41946d201" target="_blank" rel="noopener">
-                        <img src="./imgs/Certificates/DA_Spec.jpg" alt="Google Data Analytics Certificate Cover" loading="lazy">
+            <div class="skills__grid">
+
+                <div class="skills__card">
+                    <div class="skills__card-icon" aria-hidden="true">⌨️</div>
+                    <h3>Languages & Tools</h3>
+                    <ul class="tag-list">
+                        <li>Python</li>
+                        <li>SQL</li>
+                        <li>Excel / Google Sheets</li>
+                        <li>Git & GitHub</li>
+                        <li>Jira / Agile</li>
+                        <li>Power BI</li>
+                        <li>Tableau</li>
+                    </ul>
+                </div>
+
+                <div class="skills__card">
+                    <div class="skills__card-icon" aria-hidden="true">📊</div>
+                    <h3>Data & Analytics</h3>
+                    <ul class="tag-list">
+                        <li>Pandas</li>
+                        <li>NumPy</li>
+                        <li>Statistical Modelling</li>
+                        <li>Data Visualization</li>
+                        <li>Exploratory Data Analysis</li>
+                        <li>Matplotlib / Seaborn</li>
+                    </ul>
+                </div>
+
+                <div class="skills__card">
+                    <div class="skills__card-icon" aria-hidden="true">🤖</div>
+                    <h3>Machine Learning & AI</h3>
+                    <ul class="tag-list">
+                        <li>Machine Learning</li>
+                        <li>Deep Learning</li>
+                        <li>Neural Networks</li>
+                        <li>Natural Language Processing</li>
+                        <li>Vision-Language Models</li>
+                        <li>TensorFlow / Keras</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- =================================================================
+             RESEARCH SECTION
+             Highlights IIT Kharagpur internship, COLING 2025 paper,
+             and the ongoing VLM bias removal project.
+        ================================================================== -->
+        <section id="research" class="research section-pad container">
+            <h2 class="section-title">Research</h2>
+
+            <!-- Published paper card -->
+            <div class="research__card research__card--published">
+                <div class="research__meta">
+                    <span class="research__badge research__badge--pub">Published</span>
+                    <span class="research__venue">COLING 2025 · Industry Track</span>
+                </div>
+                <h3 class="research__title">
+                    <a
+                        href="https://aclanthology.org/2025.coling-industry.39/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        On the Effective Transfer of Knowledge from English to Hindi Wikipedia
+                    </a>
+                </h3>
+                <p class="research__authors">
+                    Paramita Das &nbsp;·&nbsp; Amartya Roy &nbsp;·&nbsp;
+                    <strong>Ritabrata Chakraborty</strong> &nbsp;·&nbsp; Animesh Mukherjee
+                </p>
+                <p class="research__desc">
+                    Implemented the core codebase and conducted automatic and
+                    human judgment-based evaluations for a lightweight framework that
+                    bridges content gaps between English and Hindi Wikipedia — using
+                    in-context learning with LLMs and machine translation to enhance
+                    Hindi article quality by up to <strong>65%</strong>. Conducted under
+                    <strong>Prof. Animesh Mukherjee</strong> during a research internship
+                    at <strong>IIT Kharagpur</strong> (July 2024 – January 2025).
+                </p>
+                <a
+                    href="https://aclanthology.org/2025.coling-industry.39/"
+                    class="btn btn--primary research__link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                    Read Paper
+                </a>
+            </div>
+
+            <!-- Ongoing project card -->
+            <div class="research__card research__card--ongoing">
+                <div class="research__meta">
+                    <span class="research__badge research__badge--wip">In Progress</span>
+                    <span class="research__venue">IIT Kharagpur Collaboration</span>
+                </div>
+                <h3 class="research__title">Bias Removal in Vision-Language Models (VLMs)</h3>
+                <p class="research__desc">
+                    Active research exploring bias detection and mitigation strategies
+                    in multimodal Vision-Language Models, continuing the IIT Kharagpur
+                    research collaboration.
+                </p>
+            </div>
+        </section>
+
+
+        
+
+        <!-- =================================================================
+             CERTIFICATES SECTION
+             Two rows: Specialization courses (5 cards) + Individual courses (11 cards).
+             Each card links to the Coursera verification page.
+        ================================================================== -->
+        <section id="certificates" class="certificates section-pad container">
+            <h2 class="section-title">Certifications</h2>
+
+            <!-- ---- Specializations ---- -->
+            <h3 class="certs__sub-title">Specializations</h3>
+            <div class="certs__grid">
+
+                <a href="https://coursera.org/share/97540d91029f2c02c22653f41946d201"
+                   target="_blank" rel="noopener noreferrer" class="cert-card">
+                    <img src="./imgs/Certificates/DA_Spec.jpg"
+                         alt="Google Data Analytics Professional Certificate" loading="lazy">
+                    <div class="cert-card__info">
                         <h4>Google Data Analytics Professional</h4>
-                    </a>
-                </article>
-                <article class="cert-card">
-                    <a href="https://coursera.org/share/e73c795e9530ca5a1aada0a8ec114906" target="_blank" rel="noopener">
-                        <img src="./imgs/Certificates/ML_Special.jpg" alt="DeepLearning.AI Machine Learning Specialization Cover" loading="lazy">
-                        <h4>Machine Learning Specialization</h4>
-                    </a>
-                </article>
-                <article class="cert-card">
-                    <a href="https://coursera.org/share/064b509b6b7b8c641edd315296f8e33e" target="_blank" rel="noopener">
-                        <img src="./imgs/Certificates/DL_Special.jpg" alt="DeepLearning.AI Deep Learning Specialization Cover" loading="lazy">
-                        <h4>Deep Learning Specialization</h4>
-                    </a>
-                </article>
-                <article class="cert-card">
-                    <a href="https://coursera.org/share/f6e4c0b08298660a17941b2b638d1e3c" target="_blank" rel="noopener">
-                        <img src="./imgs/Certificates/Maths_Spec.jpg" alt="Mathematics for Machine Learning Cover" loading="lazy">
-                        <h4>Mathematics for ML & Data Science</h4>
-                    </a>
-                </article>
-                <article class="cert-card">
-                    <a href="https://coursera.org/share/9f20b02987ffa825fa2d79a7292a6f0b" target="_blank" rel="noopener">
-                        <img src="./imgs/Certificates/DA_Deep_Learning.jpg" alt="DeepLearning.AI Data Analytics Cover" loading="lazy">
+                        <small>Google / Coursera</small>
+                    </div>
+                </a>
+
+                <a href="https://coursera.org/share/9f20b02987ffa825fa2d79a7292a6f0b"
+                   target="_blank" rel="noopener noreferrer" class="cert-card">
+                    <img src="./imgs/Certificates/DA_Deep_Learning.jpg"
+                         alt="DeepLearning.AI Data Analytics" loading="lazy">
+                    <div class="cert-card__info">
                         <h4>DeepLearning.AI Data Analytics</h4>
-                    </a>
-                </article>
+                        <small>DeepLearning.AI / Coursera</small>
+                    </div>
+                </a>
+
+                <a href="https://coursera.org/share/e73c795e9530ca5a1aada0a8ec114906"
+                   target="_blank" rel="noopener noreferrer" class="cert-card">
+                    <img src="./imgs/Certificates/ML_Special.jpg"
+                         alt="Machine Learning Specialization" loading="lazy">
+                    <div class="cert-card__info">
+                        <h4>Machine Learning Specialization</h4>
+                        <small>DeepLearning.AI / Coursera</small>
+                    </div>
+                </a>
+
+                <a href="https://coursera.org/share/064b509b6b7b8c641edd315296f8e33e"
+                   target="_blank" rel="noopener noreferrer" class="cert-card">
+                    <img src="./imgs/Certificates/DL_Special.jpg"
+                         alt="Deep Learning Specialization" loading="lazy">
+                    <div class="cert-card__info">
+                        <h4>Deep Learning Specialization</h4>
+                        <small>DeepLearning.AI / Coursera</small>
+                    </div>
+                </a>
+
+                <a href="https://coursera.org/share/f6e4c0b08298660a17941b2b638d1e3c"
+                   target="_blank" rel="noopener noreferrer" class="cert-card">
+                    <img src="./imgs/Certificates/Maths_Spec.jpg"
+                         alt="Mathematics for ML and Data Science" loading="lazy">
+                    <div class="cert-card__info">
+                        <h4>Mathematics for ML & Data Science</h4>
+                        <small>DeepLearning.AI / Coursera</small>
+                    </div>
+                </a>
+
             </div>
 
-            <h3 class="sub-cert-heading">Verified Core Competency Accomplishments</h3>
+            <!-- ---- Individual Courses ---- -->
+            <h3 class="certs__sub-title" style="margin-top: 50px;">Individual Courses</h3>
+            <div class="certs__grid">
 
-            <div class="cert-grid sub-certs">
-                
-                <a href="https://coursera.org/share/4be7ff1b7156f0a738bc0b45fa687da7" target="_blank" rel="noopener" class="cert-card">
-                    <img src="./imgs/Certificates/Py_1.jpg" alt="Programming for Everybody">
-                    <h4>Programming for Everybody (Python)</h4>
-                    <small>University of Michigan</small>
+                <a href="https://coursera.org/share/4be7ff1b7156f0a738bc0b45fa687da7"
+                   target="_blank" rel="noopener noreferrer" class="cert-card">
+                    <img src="./imgs/Certificates/Py_1.jpg"
+                         alt="Programming for Everybody" loading="lazy">
+                    <div class="cert-card__info">
+                        <h4>Programming for Everybody (Python)</h4>
+                        <small>University of Michigan</small>
+                    </div>
                 </a>
 
-                <a href="https://coursera.org/share/d17a98ae600341f24d33170557578e6a" target="_blank" rel="noopener" class="cert-card">
-                    <img src="./imgs/Certificates/Py_2.jpg" alt="Python Data Structures">
-                    <h4>Python Data Structures</h4>
-                    <small>University of Michigan</small>
+                <a href="https://coursera.org/share/d17a98ae600341f24d33170557578e6a"
+                   target="_blank" rel="noopener noreferrer" class="cert-card">
+                    <img src="./imgs/Certificates/Py_2.jpg"
+                         alt="Python Data Structures" loading="lazy">
+                    <div class="cert-card__info">
+                        <h4>Python Data Structures</h4>
+                        <small>University of Michigan</small>
+                    </div>
                 </a>
 
-                <a href="https://coursera.org/share/f61b72576e6cc03ea8a31887a530482a" target="_blank" rel="noopener" class="cert-card">
-                    <img src="./imgs/Certificates/Py_3.jpg" alt="Using Python to Access Web Data">
-                    <h4>Using Python to Access Web Data</h4>
-                    <small>University of Michigan</small>
+                <a href="https://coursera.org/share/f61b72576e6cc03ea8a31887a530482a"
+                   target="_blank" rel="noopener noreferrer" class="cert-card">
+                    <img src="./imgs/Certificates/Py_3.jpg"
+                         alt="Using Python to Access Web Data" loading="lazy">
+                    <div class="cert-card__info">
+                        <h4>Using Python to Access Web Data</h4>
+                        <small>University of Michigan</small>
+                    </div>
                 </a>
 
-                <a href="https://coursera.org/share/d480fbddd4d10d136dcc6db9f432e63a" target="_blank" rel="noopener" class="cert-card">
-                    <img src="./imgs/Certificates/Py_4.jpg" alt="Using Databases with Python">
-                    <h4>Using Databases with Python</h4>
-                    <small>University of Michigan</small>
+                <a href="https://coursera.org/share/d480fbddd4d10d136dcc6db9f432e63a"
+                   target="_blank" rel="noopener noreferrer" class="cert-card">
+                    <img src="./imgs/Certificates/Py_4.jpg"
+                         alt="Using Databases with Python" loading="lazy">
+                    <div class="cert-card__info">
+                        <h4>Using Databases with Python</h4>
+                        <small>University of Michigan</small>
+                    </div>
                 </a>
 
-                <a href="https://coursera.org/share/fc9331a9dd8aa7f91582887deaa3b9a0" target="_blank" rel="noopener" class="cert-card">
-                    <img src="./imgs/Certificates/Git.jpg" alt="Google Git/GitHub Certificate Cover" loading="lazy">
-                    <h4>Introduction to Git & GitHub</h4>
-                    <small>Google</small>
+                <a href="https://coursera.org/share/fc9331a9dd8aa7f91582887deaa3b9a0"
+                   target="_blank" rel="noopener noreferrer" class="cert-card">
+                    <img src="./imgs/Certificates/Git.jpg"
+                         alt="Introduction to Git and GitHub" loading="lazy">
+                    <div class="cert-card__info">
+                        <h4>Introduction to Git & GitHub</h4>
+                        <small>Google / Coursera</small>
+                    </div>
                 </a>
 
-                <a href="https://coursera.org/share/5aea8b5a930789e91d70dde849f6a156" target="_blank" rel="noopener" class="cert-card">
-                    <img src="./imgs/Certificates/Jira.jpg" alt="Jira Certificate Cover" loading="lazy">
-                    <h4>Introduction to Jira</h4>
-                    <small>Atlassian</small>
+                <a href="https://coursera.org/share/5aea8b5a930789e91d70dde849f6a156"
+                   target="_blank" rel="noopener noreferrer" class="cert-card">
+                    <img src="./imgs/Certificates/Jira.jpg"
+                         alt="Introduction to Jira" loading="lazy">
+                    <div class="cert-card__info">
+                        <h4>Introduction to Jira</h4>
+                        <small>Atlassian / Coursera</small>
+                    </div>
                 </a>
 
-                <a href="https://coursera.org/share/31b09046fedccdcd16e7434659b5f594" target="_blank" rel="noopener" class="cert-card">
-                    <img src="./imgs/Certificates/App_Stats.jpg" alt="Applied Statistics for Data Analytics Cover" loading="lazy">
-                    <h4>Applied Statistics for Data Analytics</h4>
-                    <small>DeepLearning.AI</small>
+                <a href="https://coursera.org/share/b3d224c6f290b4a5448c8bf715895d79"
+                   target="_blank" rel="noopener noreferrer" class="cert-card">
+                    <img src="./imgs/Certificates/Agile.jpg"
+                         alt="Agile Project Management" loading="lazy">
+                    <div class="cert-card__info">
+                        <h4>Agile Project Management</h4>
+                        <small>Google / Coursera</small>
+                    </div>
                 </a>
 
-                <a href="https://coursera.org/share/847f044c77743af3d4ce54b287b4517a" target="_blank" rel="noopener" class="cert-card">
-                    <img src="./imgs/Certificates/Power_BI.jpg" alt="Harnessing the Power of Data with Power BI Cover" loading="lazy">
-                    <h4>Harnessing the Power of Data with Power BI</h4>
-                    <small>Microsoft</small>
+                <a href="https://coursera.org/share/847f044c77743af3d4ce54b287b4517a"
+                   target="_blank" rel="noopener noreferrer" class="cert-card">
+                    <img src="./imgs/Certificates/Power_BI.jpg"
+                         alt="Harnessing the Power of Data with Power BI" loading="lazy">
+                    <div class="cert-card__info">
+                        <h4>Power BI — Data Analytics</h4>
+                        <small>Microsoft / Coursera</small>
+                    </div>
                 </a>
 
-                <a href="https://coursera.org/share/b3d224c6f290b4a5448c8bf715895d79" target="_blank" rel="noopener" class="cert-card">
-                    <img src="./imgs/Certificates/Agile.jpg" alt="Agile Project Management Certificate Cover" loading="lazy">
-                    <h4>Agile Project Management</h4>
-                    <small>Google</small>
+                <a href="https://coursera.org/share/31b09046fedccdcd16e7434659b5f594"
+                   target="_blank" rel="noopener noreferrer" class="cert-card">
+                    <img src="./imgs/Certificates/App_Stats.jpg"
+                         alt="Applied Statistics for Data Analytics" loading="lazy">
+                    <div class="cert-card__info">
+                        <h4>Applied Statistics for Data Analytics</h4>
+                        <small>DeepLearning.AI / Coursera</small>
+                    </div>
                 </a>
 
-
-                <a href="https://coursera.org/share/201a87d2036813c2b4447ce7bca2fc46" target="_blank" rel="noopener" class="cert-card">
-                    <img src="./imgs/Certificates/Learn.jpg" alt="Learning How to Learn">
-                    <h4>Learning How to Learn</h4>
-                    <small>DeepLearning.AI</small>
+                <a href="https://coursera.org/share/201a87d2036813c2b4447ce7bca2fc46"
+                   target="_blank" rel="noopener noreferrer" class="cert-card">
+                    <img src="./imgs/Certificates/Learn.jpg"
+                         alt="Learning How to Learn" loading="lazy">
+                    <div class="cert-card__info">
+                        <h4>Learning How to Learn</h4>
+                        <small>Coursera</small>
+                    </div>
                 </a>
 
-                <a href="https://coursera.org/share/139b2107df4cdf2d586b65bdc29037d6" target="_blank" rel="noopener" class="cert-card">
-                    <img src="./imgs/Certificates/AI.jpg" alt="AI for Everyone">
-                    <h4>AI for Everyone</h4>
-                    <small>DeepLearning.AI</small>
+                <a href="https://coursera.org/share/139b2107df4cdf2d586b65bdc29037d6"
+                   target="_blank" rel="noopener noreferrer" class="cert-card">
+                    <img src="./imgs/Certificates/AI.jpg"
+                         alt="AI for Everyone" loading="lazy">
+                    <div class="cert-card__info">
+                        <h4>AI for Everyone</h4>
+                        <small>DeepLearning.AI / Coursera</small>
+                    </div>
                 </a>
+
             </div>
         </section>
 
-        <section id="contact" class="contact-section container">
-            <h2>Contact & Collaboration Channels</h2>
-            <p class="contact-pitch">I am currently exploring strategic roles in Data Science, ML Engineering, and Advanced Data Analytics. Let's build something exceptional.</p>
-            
-            <div class="contact-container-box">
-                <ul class="contact-methods">
+
+        <!-- =================================================================
+             CONTACT SECTION
+        ================================================================== -->
+        <section id="contact" class="contact section-pad container">
+            <h2 class="section-title">Get In Touch</h2>
+            <p class="contact__pitch">
+                Open to opportunities in Data Science, ML Engineering, and Data Analytics.
+                Let's build something meaningful together.
+            </p>
+
+            <div class="contact__box">
+                <ul class="contact__list">
                     <li>
-                        <span class="icon">📞</span>
+                        <span class="contact__icon" aria-hidden="true">
+                            <i class="fa-solid fa-phone"></i>
+                        </span>
                         <div>
-                            <strong>Contact Number:</strong>
-                            <a href="tel:+917980613785" class="contact-link">+91 7980613785</a>
+                            <strong>Phone</strong>
+                            <a href="tel:+917980613785" class="contact__link">+91 7980613785</a>
                         </div>
                     </li>
                     <li>
-                        <span class="icon">✉️</span>
+                        <span class="contact__icon" aria-hidden="true">
+                            <i class="fa-solid fa-envelope"></i>
+                        </span>
                         <div>
-                            <strong>Email ID:</strong>
-                            <a href="mailto:ritabratac1997@gmail.com" class="contact-link">ritabratac1997@gmail.com</a>
+                            <strong>Email</strong>
+                            <a href="mailto:ritabratac1997@gmail.com" class="contact__link">
+                                ritabratac1997@gmail.com
+                            </a>
                         </div>
                     </li>
                     <li>
-                        <span class="icon">✉️</span>
+                        <span class="contact__icon" aria-hidden="true">
+                            <i class="fa-solid fa-envelope-open"></i>
+                        </span>
                         <div>
-                            <strong>Alternative Email:</strong>
-                            <a href="mailto:ritochak7@gmail.com" class="contact-link">ritochak7@gmail.com</a>
+                            <strong>Alt. Email</strong>
+                            <a href="mailto:ritochak7@gmail.com" class="contact__link">
+                                ritochak7@gmail.com
+                            </a>
                         </div>
                     </li>
                 </ul>
+
+                <!-- Social links inside contact box -->
+                <div class="contact__socials">
+                    <a href="https://github.com/RitoChak"
+                       target="_blank" rel="noopener noreferrer"
+                       aria-label="GitHub">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/ritabrata-chakraborty-065201257/"
+                       target="_blank" rel="noopener noreferrer"
+                       aria-label="LinkedIn">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </a>
+                </div>
             </div>
         </section>
+
     </main>
 
-    <footer class="main-footer">
-        <div class="container footer-content">
-            <p>&copy; 2026 Ritabrata Chakraborty. Built for extreme cross-platform efficiency.</p>
-            <div class="footer-socials">
-                <a href="https://github.com/RitoChak" target="_blank" rel="noopener" aria-label="GitHub Repository"><i class="fa-brands fa-github"></i></a>
-                <a href="https://www.linkedin.com/in/ritabrata-chakraborty-065201257/" target="_blank" rel="noopener" aria-label="LinkedIn Network Link"><i class="fa-brands fa-linkedin"></i></a>
+
+    <!-- =====================================================================
+         FOOTER
+    ====================================================================== -->
+    <footer class="site-footer">
+        <div class="container footer__inner">
+            <p>&copy; 2026 Ritabrata Chakraborty. All rights reserved.</p>
+            <div class="footer__socials">
+                <a href="https://github.com/RitoChak"
+                   target="_blank" rel="noopener noreferrer"
+                   aria-label="GitHub">
+                    <i class="fa-brands fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/ritabrata-chakraborty-065201257/"
+                   target="_blank" rel="noopener noreferrer"
+                   aria-label="LinkedIn">
+                    <i class="fa-brands fa-linkedin-in"></i>
+                </a>
             </div>
         </div>
     </footer>
 
+    <!--
+        scripts.js loaded with defer so it runs after the DOM is fully parsed.
+        This is the correct placement — end of body, defer attribute ensures
+        no render-blocking.
+    -->
     <script src="./scripts.js" defer></script>
+
 </body>
 </html>
